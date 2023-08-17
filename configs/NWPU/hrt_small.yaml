@@ -1,0 +1,116 @@
+CUDNN:
+  BENCHMARK: true
+  DETERMINISTIC: false
+  ENABLED: true
+GPUS: (0,1,)
+LOG_DIR: 'exp'
+WORKERS: 12
+PRINT_FREQ: 30
+
+DATASET:
+  DATASET: NWPU
+  ROOT: '../ProcessedData/NWPU_2048/'
+  TEST_SET: 'test_val.txt'
+  TRAIN_SET: 'train.txt'
+  NUM_CLASSES: 1
+  DEN_FACTOR: 200
+MODEL:
+  NAME: seg_hrnet #seg_hrnet # VGG16_FPN
+  PRETRAINED: '../PretrainedModels/hrnetv2_w48_imagenet_pretrained.pth'    #'/media/D/GJY/ht/PretrainedModels/hrnetv2_w48_imagenet_pretrained.pth'
+  EXTRA:
+    FINAL_CONV_KERNEL: 3
+    STAGE1:
+      NUM_MODULES: 1
+      NUM_RANCHES: 1
+      BLOCK: BOTTLENECK
+      NUM_BLOCKS:
+      - 4
+      NUM_CHANNELS:
+      - 64
+      FUSE_METHOD: SUM
+    STAGE2:
+      NUM_MODULES: 1
+      NUM_BRANCHES: 2
+      BLOCK: BASIC
+      NUM_BLOCKS:
+      - 4
+      - 4
+      NUM_CHANNELS:
+      - 48
+      - 96
+      FUSE_METHOD: SUM
+    STAGE3:
+      NUM_MODULES: 4
+      NUM_BRANCHES: 3
+      BLOCK: BASIC
+      NUM_BLOCKS:
+      - 4
+      - 4
+      - 4
+      NUM_CHANNELS:
+      - 48
+      - 96
+      - 192
+      FUSE_METHOD: SUM
+    STAGE4:
+      NUM_MODULES: 3
+      NUM_BRANCHES: 4
+      BLOCK: BASIC
+      NUM_BLOCKS:
+      - 4
+      - 4
+      - 4
+      - 4
+      NUM_CHANNELS:
+      - 48
+      - 96
+      - 192
+      - 384
+      FUSE_METHOD: SUM
+LOSS:
+  USE_OHEM: false
+  OHEMTHRES: 0.9
+  OHEMKEEP: 131072
+TRAIN:
+  COUNTER: 'normal'
+  IMAGE_SIZE:  # height width
+  - 1024
+  - 1024
+  ROUTE_SIZE:   #   height, width
+  - 32
+  - 32
+  BASE_SIZE: 2048
+  BATCH_SIZE_PER_GPU: 4
+  SHUFFLE: true
+  BEGIN_EPOCH: 0
+  END_EPOCH: 600
+#  RESUME: true
+  RESUME_PATH: '/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/NWPU/seg_hrnet/hrt_small_2022-08-07-23-15/'#'./exp/NWPU/seg_hrnet/seg_hrnet_w48_2022-05-27-15-03'
+  OPTIMIZER: Adam  #sgd
+  LR: 1e-5
+  WD: 0.00001
+  MOMENTUM: 0.9
+  NESTEROV: false   #@for sgd
+  AMSGRAD: false #for Adam
+  SCHEDULER_NAME: WarmupMultiStepLR
+  WARMUP_FACTOR: 0.001
+  GAMMA: 0.1
+  WARMUP_ITERS: 20
+  MILESTONES: [50, 150, 300]
+  FLIP: true
+  MULTI_SCALE: true
+  VAL_SPAN: [-600, -300, -200, -100, -50]
+  DOWNSAMPLERATE: 1
+  IGNORE_LABEL: 255
+  SCALE_FACTOR: 16
+TEST:
+  IMAGE_SIZE:  #height, width
+  - 1024
+  - 2048
+  BASE_SIZE: 2048
+  BATCH_SIZE_PER_GPU: 1
+  PATCH_BATCH_SIZE: 16
+  FLIP_TEST: false
+  MULTI_SCALE: false
+  MODEL_FILE: './exp/NWPU/seg_hrnet/seg_hrnet_w48_2022-06-03-23-12/Ep_280_mae_54.884169212251905_mse_226.06904272422108.pth' # './exp/NWPU/seg_hrnet/seg_hrnet_w48_nwpu_2022-06-03-23-12/Ep_138_mae_45.79466183813661_mse_116.98580130706075.pth'
+  #

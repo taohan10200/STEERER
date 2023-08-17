@@ -1,0 +1,131 @@
+out_dir: '/mnt/lustre/tangshixiang/vitruvian/iter_sparsercnn_vit/'
+
+common:  # prefix
+  backbone:
+    project_name: sparse_vit
+    type: vit_base_patch16
+    kwargs:
+      task_sp_list: ['pos_embed', 'rel_pos_h', 'rel_pos_w'] # wrong list would somehow cause .cuda() stuck without error
+      pretrained: True
+      learnable_pos: True
+      window: True
+      drop_path_rate: 0.
+      round_padding: True
+      pad_attn_mask: True  # to_do: ablation
+      test_pos_mode: learnable_simple_interpolate # to_do: ablation
+      lms_checkpoint_train: True
+      img_size: 224
+
+  solver:
+    type: SolverMultiTaskDev
+
+  lr_scheduler:
+    type: 'Cosine'
+    kwargs:
+      eta_min: 0.
+      base_lr: 2.e-6
+      warmup_lr: 2.e-4
+      warmup_steps: 500
+
+  optimizer:
+    type: AdamWWithBackboneClipDev
+    kwargs:
+      clip_norm: 0.01
+      norm_type: 2
+      betas: [0.9, 0.999]
+      weight_decay: 0.1
+
+  backbone_multiplier: 1.
+
+  layer_decay:
+    # layer decay
+    num_layers: 12
+    layer_decay_rate: 0.75
+    lpe_lr: True
+
+  auto_denan: False
+
+  workers: 2
+  max_iter: 93750 #61446  (50 * 149813) / (4 * 40) = 46816.5625
+
+  deterministic: True   # seed control
+  cudnn_deterministic: False
+  worker_rank: True
+  random_seed: 42
+
+  print_freq: 10
+  vis_batch: False
+  save_interval: 70000
+
+  use_ceph: True
+  sync: True
+
+  collate: dev
+
+
+# task_specific_param = ['backbone', 'neck', 'decoder', 'dataset', 'sampler', 'lr_scheduler', 'optimizer']
+tasks :  # prefix
+  0:     # prefix
+    name: CrowdHuman
+    loss_weight: 1.0
+    gres_ratio: 1  # int, > 0| world/sum*ratio
+
+    dataset:
+      type: PedestrainDetectionDataset
+      kwargs:
+        task_spec:
+          img_folder: shlg:s3://peddet_public/CrowdHuman/Images
+          ann_file: shlg:s3://peddet_public/CrowdHuman/annotations/train.json
+          return_masks: False
+        augmentation: {}
+        vit: True
+        sparsercnn: True
+    sampler:
+      batch_size: 1  # per card
+      shuffle_strategy: 1
+    neck:
+      type: PedDetSimpleFPN
+      kwargs:
+        vis_token_dim: 256
+        num_feature_levels: 4
+    decoder:  # todo: coco instance seg config for now
+      type: SparseRCNNHead
+      kwargs:
+        task: peddet
+        loss_weight: 1.0
+        roi_input_shape: [{channels: 256, stride: 4}, {channels: 256, stride: 8}, {channels: 256, stride: 16}, {channels: 256, stride: 32}]
+        cfg:
+          SparseRCNN:
+            NUM_CLASSES: 1
+            HIDDEN_DIM: 256
+            DIM_FEEDFORWARD: 2048
+            NHEADS: 8
+            DROPOUT: 0.0
+            ACTIVATION: 'relu'
+            NUM_HEADS: 6
+            ITER_NUM: 1
+            WATERSHED: 5
+            USE_FOCAL: True
+            PRIOR_PROB: 0.01
+            NUM_PROPOSALS: 1000
+            CONFIDENCE_THR: 0.7
+            LOW_CONFIDENCE_THR: 0.05
+            RELATION_IOU_THR: 0.4
+            NUM_CLS: 1
+            NUM_REG: 3
+            NUM_DYNAMIC: 2
+            DIM_DYNAMIC: 64
+            CLASS_WEIGHT: 2.0
+            GIOU_WEIGHT: 2.0
+            L1_WEIGHT: 5.0
+            NO_OBJECT_WEIGHT: 0.1
+            DEEP_SUPERVISION: True
+            ALPHA: 0.25
+            GAMMA: 2.0
+            IGNORE_THR: 0.7
+          ROI_HEADS:
+            IN_FEATURES: [0, 1, 2, 3]
+          ROI_BOX_HEAD:
+            POOLER_RESOLUTION: 7
+            POOLER_SAMPLING_RATIO: 2
+            POOLER_TYPE: ROIAlignV2
