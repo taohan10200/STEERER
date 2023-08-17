@@ -322,9 +322,6 @@ class HighResolutionNet(nn.Module):
             self.stage4_cfg, num_channels, multi_scale_output=True, stage_idx=4)
         # import pdb
         # pdb.set_trace()
-        last_inp_channels = np.int(np.sum(pre_stage_channels))
-
-
 
     def _make_transition_layer(
             self, num_channels_pre_layer, num_channels_cur_layer):

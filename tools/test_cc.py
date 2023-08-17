@@ -84,11 +84,14 @@ def main():
     # )
     # logger.info(get_model_summary(model.cuda(), dump_input.cuda()))
 
-    if config.test.model_file:
+    if args.checkpoint:
+        model_state_file = args.checkpoint
+    elif config.test.model_file:
         model_state_file = config.test.model_file
     else:
         model_state_file = os.path.join(final_output_dir,
                                         'final_state.pth')
+    
     logger.info('=> loading model from {}'.format(model_state_file))
 
     pretrained_dict = torch.load(model_state_file)
@@ -100,7 +103,9 @@ def main():
     #     logger.info(
     #         '=> loading {} from pretrained model'.format(k))
     # model_dict.update(pretrained_dict)
-    model.load_state_dict(pretrained_dict,strict=False)
+
+    model.load_state_dict(pretrained_dict,strict=True)
+
 
     model = model.to(device)
 
@@ -139,7 +144,7 @@ def main():
         f.write(save_count_txt)
 
     end = timeit.default_timer()
-    logger.info('Mins: %d' % np.int((end - start) / 60))
+    logger.info('Mins: %d' % np.int32((end - start) / 60))
     logger.info('Done')
 
 

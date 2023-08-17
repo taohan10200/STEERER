@@ -1,5 +1,3 @@
-import os
-import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -7,7 +5,7 @@ from lib.models.backbones.backbone_selector import BackboneSelector
 from lib.models.heads.head_selector import  HeadSelector
 from lib.models.heads.moe import upsample_module
 from lib.utils.Gaussianlayer import Gaussianlayer
-from lib_cls.core.evaluate import accuracy
+
 class UncertaintyLoss(nn.Module):
 
     def __init__(self, v_num):
@@ -131,7 +129,7 @@ class Baseline_Counter(nn.Module):
                 label_list.append(self.gaussian(label.unsqueeze(1))*self.weight)
 
             # moe_label,score_gt = self.get_moe_label(out_list, label_list, (64,64))
-            #
+
             # import numpy as np
             # import cv2
             # import pdb

@@ -140,6 +140,7 @@ def main():
 
     model = Baseline_Counter(config.network,config.dataset.den_factor,config.train.route_size,device)
 
+      # provide the summary of model
     if args.local_rank == 0:
         logger.info(pprint.pformat(args))
         logger.info(config)
@@ -150,16 +151,9 @@ def main():
         dump_input = torch.rand(
             (1, 3, 768, 1024)
         ).cuda()
-        print(flop_count(model.cuda(), dump_input.cuda(),))
+        logger.info(flop_count(model.cuda(), dump_input.cuda(),))
         # import pdb
         # pdb.set_trace()
-
-        # provide the summary of model
-        dump_input = torch.rand(
-            (2, 3, config.train.image_size[0], config.train.image_size[1])
-        )
-        logger.info(flop_count(model.to(device), (dump_input.to(device),)))
-
 
         if config.train.resume_path is None and args.debug is False:
             work_dir = os.path.join(os.path.dirname(__file__), '../')

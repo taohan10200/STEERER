@@ -6,7 +6,7 @@
 import os
 import pprint
 import sys
-import _init_paths
+# import _init_paths
 from lib.core.Counter import Counter
 from lib.utils.utils import create_logger, random_seed_setting
 from lib.utils.modelsummary import get_model_summary

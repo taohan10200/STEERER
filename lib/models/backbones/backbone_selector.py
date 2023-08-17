@@ -11,8 +11,7 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-from lib.models.backbones import HRTBackbone
-from lib.models.backbones import CCFBackbone
+
 from lib.models.backbones import MocBackbone
 from lib.models.backbones import MocHRBackbone
 from lib.models.backbones import MocCatBackbone
@@ -22,8 +21,8 @@ from lib.models.backbones import HRBackboneFPN
 from lib.utils.logger import Logger as Log
 
 all_backbones = [
-    "ResNetBackbone", "HRNetBackbone", "HRTBackbone",
-    "SwinTransformerBackbone", "SwinTransformer", "CCFBackbone","MocBackbone",
+ 
+     "MocBackbone",
     "MocHRBackbone","MocCatBackbone", "MAEvitBackbone","VGGBackbone","HRBackboneFPN"
 ]
 

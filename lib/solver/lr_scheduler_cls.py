@@ -22,7 +22,7 @@ def build_scheduler(config, optimizer, n_iter_per_epoch, end_epoch):
         lr_scheduler = CosineLRScheduler(
             optimizer,
             t_initial=num_steps,
-            t_mul=1.0,
+            # t_mul=1.0,
             lr_min=config.MIN_LR,
             warmup_lr_init=config.WARMUP_LR,
             warmup_t=warmup_steps,
