@@ -82,8 +82,8 @@ sh test.sh configs/SHHB_final.py PretrainedModels/SHHB.pth 1
 or if you are trainging on the computer cluster, you could be run
 
 ```bash
-# $3 the configuration file, $4 is the number of GPUs
-sh slurm_train.sh partition_name job_name configs/SHHB_final.py 1
+# $3 the configuration file,  $4 is the checkpoint path, $5 is the number of GPUs
+sh slurm_test.sh partition_name job_name configs/SHHB_final.py PretrainedModels/SHHB.pth 1
 ```
  
 
@@ -92,21 +92,12 @@ The results on HT21 and SenseCrowd.
 
 - HT21 dataset
 
-|   Method   |  CroHD11~CroHD15    |  MAE/MSE/MRAE(%)  |
-|------------|-------- |-------|
-| Paper:  VGG+FPN [2,3]| 164.6/1075.5/752.8/784.5/382.3|141.1/192.3/27.4|
-| This Repo's Reproduction:  VGG+FPN [2,3]|138.4/1017.5/623.9/659.8/348.5|160.7/217.3/25.1| 
+|            | Dataset     |  MAE/MSE |   F1-m./Pre./Rec. (%) |
+|------------|-------- |-------|-------
+| Paper      |  SHHB   | 5.8/8.5 |1.98/2.01 |87.0/89.4/84.8| 
+| This Repo  |  SHHA   |-/-      |-/-/-| 
 
-- SenseCrowd dataset
 
-|   Method   |  MAE/MSE/MRAE(%)|  MIAE/MOAE | D0~D4 (for MAE)  |
-|------------|---------|-------|-------|
-| Paper:  VGG+FPN [2,3]| 12.3/24.7/12.7 |1.98/2.01 |4.1/8.0/23.3/50.0/77.0| 
-| This Repo's Reproduction:  VGG+FPN [2,3] |  11.7/24.6/11.7 | 1.99/1.88| 3.6/6.8/22.4/42.6/85.2 |
-
-# Video Demo
-Please visit [bilibili](https://www.bilibili.com/video/BV1cY411H7hr/) or [YouTube]() to watch the video demonstration.
-![demo](./figures/demo_screen1.png)
 # References
 1. Acquisition of Localization Confidence for Accurate Object Detection, ECCV, 2018.
 2. Very Deep Convolutional Networks for Large-scale Image Recognition, arXiv, 2014.
