@@ -9,6 +9,7 @@ network = dict(
     sub_arch='hrnet48',
     counter_type = 'withMOE', #'withMOE' 'baseline'
     resolution_num = [0,1,2,3],
+    loss_weight = [1., 1./2, 1./4, 1./8],
     sigma = [4],
     gau_kernel_size = 15,
     baseline_loss = False,
@@ -39,7 +40,7 @@ dataset = dict(
 
 optimizer = dict(
     NAME='adamw',
-    BASE_LR=1e-5,
+    BASE_LR=1e-4,
     BETAS=(0.9, 0.999),
     WEIGHT_DECAY=1e-4,
     EPS= 1.0e-08,
@@ -59,7 +60,6 @@ lr_config = dict(
     MIN_LR= 1.0e-07
   )
 
-total_epochs = 210
 
 log_config = dict(
     interval=50,
@@ -79,11 +79,10 @@ train = dict(
     extra_epoch=0,
     extra_lr = 0,
     #  RESUME: true
-    resume_path=None,#'./exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-19-20-52/', #'/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-19-01-39/',#'/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-18-10-29/', #'/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-15-15-22/', #'/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-13-16-28/', # '/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-09-21-07/', #'./exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-06-20-35/', #'/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-06-13-03/', #'./exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-04-19-21/', #'./exp/NWPU/MocBackbone_moc_small/moc_small_2022-08-31-14-41/', #'./exp/NWPU/seg_hrnet/hrt_small_2022-08-07-23-15/',
-    # './exp/NWPU/seg_hrnet/seg_hrnet_w48_2022-05-27-15-03'
+    resume_path=None,
     flip=True,
     multi_scale=True,
-    scale_factor=16,
+    scale_factor=(0.5, 1.0/0.5),
     val_span =  [-1000, -600, -400, -200, -200, -100, -100],
     downsamplerate= 1,
     ignore_label= 255

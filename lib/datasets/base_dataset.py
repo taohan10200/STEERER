@@ -93,11 +93,11 @@ class BaseDataset(data.Dataset):
         else:
             if h > w:
                 new_h = long_size
-                new_w = np.int(w * long_size / h + 0.5)
+                new_w = np.int64(w * long_size / h + 0.5)
                 ratio = long_size/h
             else:
                 new_w = long_size
-                new_h = np.int(h * long_size / w + 0.5)
+                new_h = np.int64(h * long_size / w + 0.5)
                 ratio = long_size/w
         image = cv2.resize(image, (new_w, new_h),
                            interpolation = cv2.INTER_LINEAR)
@@ -111,10 +111,10 @@ class BaseDataset(data.Dataset):
         h, w = image.shape[:2]
         if h > w:
             new_h = long_size
-            new_w = np.int(w * long_size / h + 0.5)
+            new_w = np.int64(w * long_size / h + 0.5)
         else:
             new_w = long_size
-            new_h = np.int(h * long_size / w + 0.5)
+            new_h = np.int64(h * long_size / w + 0.5)
         
         image = cv2.resize(image, (new_w, new_h), 
                            interpolation = cv2.INTER_LINEAR)
@@ -128,7 +128,7 @@ class BaseDataset(data.Dataset):
 
     def multi_scale_aug(self, image, label=None, 
             rand_scale=1, rand_crop=True):
-        long_size = np.int(self.base_size * rand_scale + 0.5)
+        long_size = np.int64(self.base_size * rand_scale + 0.5)
         if label is not None:
             image, label = self.image_resize(image, long_size, label)
             if rand_crop:
@@ -193,8 +193,8 @@ class BaseDataset(data.Dataset):
         assert batch == 1, "only supporting batchsize 1."
         device = torch.device("cuda:%d" % model.device_ids[0])
         image = image.numpy()[0].transpose((1,2,0)).copy()
-        stride_h = np.int(self.crop_size[0] * 2.0 / 3.0)
-        stride_w = np.int(self.crop_size[1] * 2.0 / 3.0)
+        stride_h = np.int64(self.crop_size[0] * 2.0 / 3.0)
+        stride_w = np.int64(self.crop_size[1] * 2.0 / 3.0)
         final_pred = torch.zeros([1, self.num_classes,
                                     ori_height,ori_width]).to(device)
         padvalue = -1.0  * np.array(self.mean) / np.array(self.std)
@@ -217,9 +217,9 @@ class BaseDataset(data.Dataset):
                     new_img = self.pad_image(new_img, height, width, 
                                         self.crop_size, padvalue)
                 new_h, new_w = new_img.shape[:-1]
-                rows = np.int(np.ceil(1.0 * (new_h - 
+                rows = np.int64(np.ceil(1.0 * (new_h - 
                                 self.crop_size[0]) / stride_h)) + 1
-                cols = np.int(np.ceil(1.0 * (new_w - 
+                cols = np.int64(np.ceil(1.0 * (new_w - 
                                 self.crop_size[1]) / stride_w)) + 1
                 preds = torch.zeros([1, self.num_classes,
                                            new_h,new_w]).to(device)

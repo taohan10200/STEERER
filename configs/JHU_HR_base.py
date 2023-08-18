@@ -42,7 +42,7 @@ optimizer = dict(
     NAME='adamw',
     BASE_LR=1e-5,
     BETAS=(0.9, 0.999),
-    WEIGHT_DECAY=1e-5,
+    WEIGHT_DECAY=1e-4,
     EPS= 1.0e-08,
     MOMENTUM= 0.9,
     AMSGRAD = False,
@@ -60,7 +60,6 @@ lr_config = dict(
     MIN_LR= 1.0e-07
   )
 
-total_epochs = 210
 
 log_config = dict(
     interval=50,

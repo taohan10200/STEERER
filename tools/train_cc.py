@@ -19,7 +19,7 @@ import torch.nn as nn
 import torch.optim
 from torch.utils.data.distributed import DistributedSampler
 from tensorboardX import SummaryWriter
-from mmcv.runner import (
+from lib.utils.dist_utils import (
     get_dist_info,
     init_dist)
 from mmcv import Config, DictAction
@@ -27,13 +27,10 @@ import lib.datasets as datasets
 from lib.core.criterion import MSE, CrossEntropy, OhemCrossEntropy
 from lib.core.cc_function import train, validate
 from lib.utils.modelsummary import get_model_summary
-# from lib.utils.flop_count import flop_count
 from lib.utils.KPI_pool import Task_KPI_Pool
 from lib.utils.utils import create_logger, random_seed_setting, copy_cur_env
 from lib.core.Counter import *
 from bisect import bisect_right
-
-
 from lib.datasets.utils.collate import default_collate
 from lib.models.build_counter import Baseline_Counter
 import argparse
@@ -166,7 +163,7 @@ def main():
         model = model.to(device)
         model = nn.parallel.DistributedDataParallel(
             model, device_ids=[args.local_rank], output_device=args.local_rank,
-            find_unused_parameters=False)
+            find_unused_parameters=True)
     else:
         model = nn.DataParallel(model)
 
