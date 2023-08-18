@@ -57,24 +57,37 @@ pip install -r requirements.txt
 ````
 
 ## Training
-we provide simplify script to 
+we provide simplify script to run distributed or cluster training,
 ```bash
 # $1 is the configuration file, $2 is the GPU_ID, also support multiple GPUs, like 1,2,3,4 
 sh train.sh configs/SHHB_final.py 1  
 
 ```
+or if you are trainging on the computer cluster, you could be run
 
+```bash
+# $3 the configuration file, $4 is the number of GPUs
+sh slurm_train.sh partition_name job_name configs/SHHB_final.py 1
+```
  
-Tips: The training process takes **~10 hours** on HT21 dataset with **one TITAN RTX (24GB Memory)**. 
 
 ## Testing
-To reproduce the performance, download the pre-trained models from [onedrive](https://1drv.ms/u/s!AgKz_E1uf260nWeqa86-o9FMIqMt?e=0scDuw) or [badu disk](https://pan.baidu.com/s/13X3-egn0fYSd6NUTxB4cuw?pwd=ew8f) and then place  ```pretrained_models``` folder to ```Root/DRNet/model/``` 
-- for HT21:                                                    
-  - Run ```python test_HT21.py```.
-- for SenseCrowd:  
-  - Run ```python test_SENSE.py```.
-Then the output file (```*_SENSE_cnt.py```) will be generated.
-## Performance 
+To reproduce the performance, run the similry command like training,
+
+```bash
+# $1 is the configuration file, $2 is the checkpoint path, $3 is the GPU_ID, only support single GPU. 
+sh test.sh configs/SHHB_final.py PretrainedModels/SHHB.pth 1
+
+```
+or if you are trainging on the computer cluster, you could be run
+
+```bash
+# $3 the configuration file, $4 is the number of GPUs
+sh slurm_train.sh partition_name job_name configs/SHHB_final.py 1
+```
+ 
+
+## Reproduce Performance: TODO 
 The results on HT21 and SenseCrowd.
 
 - HT21 dataset
@@ -103,11 +116,11 @@ Please visit [bilibili](https://www.bilibili.com/video/BV1cY411H7hr/) or [YouTub
 If you find this project is useful for your research, please cite:
 
 ```
-@article{han2022drvic,
-  title={DR.VIC: Decomposition and Reasoning for Video Individual Counting},
-  author={Han, Tao, Bai Lei, Gao, Junyu, Qi Wang, and Ouyang  Wanli},
-  booktitle={CVPR},
-  year={2022}
+@article{haniccvsteerer,
+  title={STEERER: Resolving Scale Variations for Counting and Localization via Selective Inheritance Learning},
+  author={Han, Tao, Bai Lei, Lingbo Liu, and Ouyang  Wanli},
+  booktitle={ICCV},
+  year={2023}
 }
 ```
 
