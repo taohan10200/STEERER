@@ -13,54 +13,56 @@ This is the official PyTorch implementation of paper: [**STEERER: Resolving Scal
 
 ## preparatoin 
 
-- **Clone this repo** in the directory (```Root/```):
+- **Clone this repo** in the directory (```root/```):
 
 
-```
+```bash
 cd $root
 git clone https://github.com/taohan10200/STEERER.git
 ```
-- **Install dependencies.** We use python 3.7 and pytorch >= 1.6.0 : http://pytorch.org.
+- **Install dependencies.** We use python 3.9 and pytorch >= 1.12.0 : http://pytorch.org.
 
-    ```bash
-    conda create -n STEERER python=3.9 -y
-    conda activate STEERER
-    conda install pytorch==1.12.0 torchvision==0.13.0 cudatoolkit=11.3 -c pytorch
-    cd ${STEERER}
-    pip install -r requirements.txt
-    ```
+```bash
+conda create -n STEERER python=3.9 -y
+conda activate STEERER
+conda install pytorch==1.12.0 torchvision==0.13.0 cudatoolkit=11.3 -c pytorch
+cd ${STEERER}
+pip install -r requirements.txt
+```
 
-- **Prepare Datasets and weights**, Initial Weight and Pretrained Models are available at the [OneDrive](https://connectpolyu-my.sharepoint.com/:f:/g/personal/23040302r_connect_polyu_hk/ErX-l0MtTWtJmSilWuxUrOgBMRYqDSbYuAdoi6a-9Jtlmg?e=OdyvTs) net disk,  The shared  directory tree should be look like this, and you can selectively dolownd the files that you want to train or inference. To s
+- **Prepare datasets and weights.** Pretrained models are available at the [OneDrive](https://connectpolyu-my.sharepoint.com/:f:/g/personal/23040302r_connect_polyu_hk/ErX-l0MtTWtJmSilWuxUrOgBMRYqDSbYuAdoi6a-9Jtlmg?e=OdyvTs) net disk,  The shared  should be look like this, and you can selectively dolownd the files that you want to train or inference. Before starting your training and testing, you should organiza your project as the following directory tree. 
+
 ````bash
-$SEG_ROOT/data
-├── ProcessedData
-│   ├── SHHB
-│   │   ├── images     # the input images
-│   │   ├── jsons      # the annotated labels
-│   │   ├── train.txt   # the image name of train set 
-│   │   ├── test.txt    # the image name of test set
-│   │   ├── test_gt_loc.txt  # the localization labels for evaluation
-│   │   └──train_gt_loc.txt  # the localization labels for train set (not used)
-│   ├── SHHA
-│   ├── NWPU
-│   ├── QNRF
-│   ├── JHU
-│   ├── MTC
-│   ├── JHU
-│   ├── JHUTRANCOS_v3
-│   └── TREE
-├── PretrainedModels
 
+  $root/
+  ├── ProcessedData
+  │   ├── SHHB
+  │   │   ├── images     # the input images
+  │   │   ├── jsons      # the annotated labels
+  │   │   ├── train.txt   # the image name of train set 
+  │   │   ├── test.txt    # the image name of test set
+  │   │   ├── test_gt_loc.txt  # the localization labels for evaluation
+  │   │   └──train_gt_loc.txt  # the localization labels for train set (not used)
+  │   ├── SHHA
+  │   ├── NWPU
+  │   ├── QNRF
+  │   ├── JHU
+  │   ├── MTC
+  │   ├── JHU
+  │   ├── JHUTRANCOS_v3
+  │   └── TREE
+  ├── PretrainedModels
+  └── STEERER
+
+````
 
 ## Training
-Check some parameters in ```config.py``` before training,
-* Use `__C.DATASET = 'HT21'` to set the dataset (default: `HT21`).
-* Use `__C.GPU_ID = '0'` to set the GPU.
-* Use `__C.MAX_EPOCH = 20` to set the number of the training epochs (default:20).
-* Use `__C.EXP_PATH = os.path.join('./exp', __C.DATASET)` to set the dictionary for saving the code, weights, and resume point.
+we provide simplify script to 
+```bash
+# $1 is the configuration file, $2 is the GPU_ID, also support multiple GPUs, like 1,2,3,4 
+sh train.sh configs/SHHB_final.py 1  
 
-Check other parameters (`TRAIN_BATCH_SIZE`, `TRAIN_SIZE` etc.) in the ```Root/DRNet/datasets/setting``` in case your GPU's memory is not support for the default setting.
-- run ```python train.py```.
+```
 
  
 Tips: The training process takes **~10 hours** on HT21 dataset with **one TITAN RTX (24GB Memory)**. 
@@ -99,6 +101,7 @@ Please visit [bilibili](https://www.bilibili.com/video/BV1cY411H7hr/) or [YouTub
 
 # Citation
 If you find this project is useful for your research, please cite:
+
 ```
 @article{han2022drvic,
   title={DR.VIC: Decomposition and Reasoning for Video Individual Counting},

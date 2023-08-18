@@ -23,14 +23,13 @@ set -x
 
 CONFIG=$1
 GPUS=$2
-WORK_DIR=$3
 NNODES=${NNODES:-1}
 NODE_RANK=${NODE_RANK:-0}
 PORT=${PORT:-29000}
 MASTER_ADDR=${MASTER_ADDR:-"127.0.0.1"}
 source /mnt/petrelfs/hantao.dispatch/anaconda3/bin/activate nwp
 
-echo "export CUDA_VISIBLE_DEVICES=$4"
+echo "export CUDA_VISIBLE_DEVICES=$3"
 export CUDA_VISIBLE_DEVICES=${4:-"1,2"}
 PYTHONPATH="$(dirname $0)/..":$PYTHONPATH \
 python -m torch.distributed.launch \
@@ -40,5 +39,4 @@ python -m torch.distributed.launch \
     --master_port=$PORT \
     $(dirname "$0")/train_cc.py \
     --cfg=$CONFIG \
-    --work-dir=$WORK_DIR \
     --launcher pytorch ${@:5}
