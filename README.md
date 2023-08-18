@@ -15,8 +15,14 @@ This is the official PyTorch implementation of paper: [**STEERER: Resolving Scal
 
 ## preparatoin 
 
-- Clone this repo in the directory (```Root/```):
-- Install dependencies. We use python 3.7 and pytorch >= 1.6.0 : http://pytorch.org.
+- **Clone this repo** in the directory (```Root/```):
+
+
+```
+cd $root
+git clone https://github.com/taohan10200/STEERER.git
+```
+- **Install dependencies.** We use python 3.7 and pytorch >= 1.6.0 : http://pytorch.org.
 
     ```bash
     conda create -n STEERER python=3.9 -y
@@ -26,7 +32,7 @@ This is the official PyTorch implementation of paper: [**STEERER: Resolving Scal
     pip install -r requirements.txt
     ```
 
-- Datasets, Initial Weight and Pretrained Models are available at the [OneDrive](https://connectpolyu-my.sharepoint.com/:f:/g/personal/23040302r_connect_polyu_hk/ErX-l0MtTWtJmSilWuxUrOgBMRYqDSbYuAdoi6a-9Jtlmg?e=OdyvTs) net disk,  The shared  directory tree should be look like this, and you can selectively dolownd the files that you want to train or inference:
+- **Prepare Datasets and weights**, Initial Weight and Pretrained Models are available at the [OneDrive](https://connectpolyu-my.sharepoint.com/:f:/g/personal/23040302r_connect_polyu_hk/ErX-l0MtTWtJmSilWuxUrOgBMRYqDSbYuAdoi6a-9Jtlmg?e=OdyvTs) net disk,  The shared  directory tree should be look like this, and you can selectively dolownd the files that you want to train or inference. To s
 ````bash
 $SEG_ROOT/data
 ├── ProcessedData
@@ -43,34 +49,11 @@ $SEG_ROOT/data
 │   ├── JHU
 │   ├── MTC
 │   ├── JHU
+│   ├── JHUTRANCOS_v3
+│   └── TREE
+├── PretrainedModels
 
-├── lip
-│   ├── TrainVal_images
-│   │   ├── train_images
-│   │   └── val_images
-│   └── TrainVal_parsing_annotations
-│       ├── train_segmentations
-│       ├── train_segmentations_reversed
-│       └── val_segmentations
-├── pascal_ctx
-│   ├── common
-│   ├── PythonAPI
-│   ├── res
-│   └── VOCdevkit
-│       └── VOC2010
-├── list
-│   ├── cityscapes
-│   │   ├── test.lst
-│   │   ├── trainval.lst
-│   │   └── val.lst
-│   ├── lip
-│   │   ├── testvalList.txt
-│   │   ├── trainList.txt
-│   │   └── valList.txt
-  
-   - **HT21** dataset: Download CroHD dataset from this [link](https://motchallenge.net/data/Head_Tracking_21/). Unzip ```HT21.zip``` and place ``` HT21``` into the folder (```Root/dataset/```). 
-   - **SenseCrowd** dataset: Download the dataset from [Baidu disk](https://pan.baidu.com/s/1OYBSPxgwvRMrr6UTStq7ZQ?pwd=64xm) or from the original dataset [link](https://github.com/HopLee6/VSCrowd-Dataset). 
-   - Download the lists of `train/val/test` sets at [link1](https://1drv.ms/u/s!AgKz_E1uf260nWeqa86-o9FMIqMt?e=0scDuw) or [link2](https://pan.baidu.com/s/13X3-egn0fYSd6NUTxB4cuw?pwd=ew8f), and place them to each dataset folder, respectively.   
+
 ## Training
 Check some parameters in ```config.py``` before training,
 * Use `__C.DATASET = 'HT21'` to set the dataset (default: `HT21`).

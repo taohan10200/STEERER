@@ -184,16 +184,6 @@ def main():
                               pre_den[0].detach().cpu(), gt_den[0].detach().cpu(),pred_cnt,gt_count,
                               pre_data['points'])
 
-            # confusion_matrix = torch.from_numpy(confusion_matrix).to(device)
-            # reduced_confusion_matrix = reduce_tensor(confusion_matrix)
-            #
-            # confusion_matrix = reduced_confusion_matrix.cpu().numpy()
-            # pos = confusion_matrix.sum(1)
-            # res = confusion_matrix.sum(0)
-            # tp = np.diag(confusion_matrix)
-            # IoU_array = (tp / np.maximum(1.0, pos + res - tp))
-            # mean_IoU = IoU_array.mean()
-
 
         msg = 'mae: {: 4.4f}, mse: {: 4.4f}, \
                nae: {: 4.4f}, Class IoU: '.format(mae,
