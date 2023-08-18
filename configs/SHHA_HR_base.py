@@ -62,7 +62,6 @@ lr_config = dict(
     MIN_LR= 1.0e-07
   )
 
-total_epochs = 210
 
 log_config = dict(
     interval=50,

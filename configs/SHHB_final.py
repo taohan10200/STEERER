@@ -26,8 +26,8 @@ network = dict(
 
 dataset = dict(
     name='SHHB',
-    root='../ProcessedData/SHHBx2/',
-    test_set='test_val.txt',
+    root='../ProcessedData/SHHB/',
+    test_set='test.txt',
     train_set='train.txt',
     loc_gt = 'test_gt_loc.txt',
     num_classes= len(network['resolution_num']),
@@ -38,7 +38,7 @@ dataset = dict(
 
 optimizer = dict(
     NAME='adamw',
-    BASE_LR=1e-4,
+    BASE_LR=1e-5,
     BETAS=(0.9, 0.999),
     WEIGHT_DECAY=1e-2,
     EPS= 1.0e-08,
@@ -72,7 +72,7 @@ train = dict(
     batch_size_per_gpu=8,
     shuffle=True,
     begin_epoch=0,
-    end_epoch=1000,
+    end_epoch=300,
     extra_epoch=0,
     extra_lr = 0,
     #  RESUME: true
@@ -91,15 +91,13 @@ test = dict(
     image_size=(1024, 2048),  # height, width
     base_size=2048,
     loc_base_size=2048,
-    loc_threshold=0.15,
+    loc_threshold=0.20,
     batch_size_per_gpu=1,
     patch_batch_size=16,
     flip_test=False,
     multi_scale=False,
-    # './exp/NWPU/seg_hrnet/seg_hrnet_w48_nwpu_2022-06-03-23-12/Ep_138_mae_45.79466183813661_mse_116.98580130706075.pth'
-    # model_file= './exp/SHHB/MocHRBackbone_hrnet48/SHHB_mocHR_small_2022-09-23-17-37/Ep_204_mae_6.745270511772059_mse_11.943930811699868.pth', #'./exp/NWPU/seg_hrnet/seg_hrnet_w48_2022-06-03-23-12/Ep_280_mae_54.884169212251905_mse_226.06904272422108.pth'
-    # model_file = './exp/SHHB/MocHRBackbone_hrnet48/SHHB_mocHR_small_2022-09-23-17-29/Ep_304_mae_6.403675679919086_mse_11.059794822384989.pth'
-    model_file = './exp/SHHB/MocHRBackbone_hrnet48/SHHBx2_HR_2022-11-11-03-22/Ep_287_mae_5.6193033411533015_mse_8.711175777494494.pth'
+
+    model_file = ''
 )
 
 CUDNN = dict(

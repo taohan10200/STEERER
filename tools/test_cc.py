@@ -6,7 +6,6 @@
 # ------------------------------------------------------------------------------
 import os
 import pprint
-import sys
 import _init_paths
 from lib.core.Counter import Counter
 from lib.utils.utils import create_logger, random_seed_setting
@@ -22,11 +21,11 @@ import time
 import logging
 import argparse
 from lib.models.build_counter import Baseline_Counter
-
+from lib.utils.dist_utils import (
+    get_dist_info,
+    init_dist)
 from mmcv import Config, DictAction
-# config.merge_from_file(sys.argv[2])
-# os.environ["CUDA_VISIBLE_DEVICES"] = \
-#     ','.join((map(str, config.GPUS)))  # str(config.GPUS).strip('(').strip(')')
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Test crowd counting network')
@@ -43,6 +42,11 @@ def parse_args():
                         help="Modify config options using the command-line",
                         default=None,
                         nargs=argparse.REMAINDER)
+    parser.add_argument('--launcher',
+                        choices=['none', 'pytorch', 'slurm', 'mpi','torchrun'],
+                        default='none',
+                        help='job launcher')
+        
     parser.add_argument("--local_rank", type=int, default=0)
     parser.add_argument(
         '--cfg-options',
@@ -71,6 +75,22 @@ def main():
     logger.info(pprint.pformat(args))
     logger.info(pprint.pformat(config))
 
+    logger.info('GPU idx:'+os.environ['CUDA_VISIBLE_DEVICES'])
+    gpus = config.gpus
+    distributed = torch.cuda.device_count() > 1
+    if distributed:
+        torch.cuda.set_device(args.local_rank)
+        # torch.distributed.init_process_group(
+        #     backend="nccl", init_method="env://",
+        # )
+        init_dist(args.launcher)
+        # torch.cuda.set_device(args.local_rank)
+        if args.launcher == 'pytorch':
+            args.local_rank = int(os.environ["LOCAL_RANK"])
+        else:
+            rank, world_size = get_dist_info()
+            args.local_rank = rank
+    
     # cudnn related setting
     random_seed_setting(config)
 
@@ -95,14 +115,7 @@ def main():
     logger.info('=> loading model from {}'.format(model_state_file))
 
     pretrained_dict = torch.load(model_state_file)
-    # model_dict = model.state_dict()
 
-    # pretrained_dict = {k[6:]: v for k, v in pretrained_dict.items()
-    #                    if k[6:] in model_dict.keys()}
-    # for k, _ in pretrained_dict.items():
-    #     logger.info(
-    #         '=> loading {} from pretrained model'.format(k))
-    # model_dict.update(pretrained_dict)
 
     model.load_state_dict(pretrained_dict,strict=True)
 

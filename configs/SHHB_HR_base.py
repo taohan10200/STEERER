@@ -100,9 +100,6 @@ test = dict(
     patch_batch_size=16,
     flip_test=False,
     multi_scale=False,
-    # './exp/NWPU/seg_hrnet/seg_hrnet_w48_nwpu_2022-06-03-23-12/Ep_138_mae_45.79466183813661_mse_116.98580130706075.pth'
-    # model_file= './exp/SHHB/MocHRBackbone_hrnet48/SHHB_mocHR_small_2022-09-23-17-37/Ep_204_mae_6.745270511772059_mse_11.943930811699868.pth', #'./exp/NWPU/seg_hrnet/seg_hrnet_w48_2022-06-03-23-12/Ep_280_mae_54.884169212251905_mse_226.06904272422108.pth'
-    # model_file = './exp/SHHB/MocHRBackbone_hrnet48/SHHB_mocHR_small_2022-09-23-17-29/Ep_304_mae_6.403675679919086_mse_11.059794822384989.pth'
     model_file = './exp/SHHB/MocHRBackbone_hrnet48/SHHB_HR_2022-10-09-00-42_mae_5.8_mse_8.7/Ep_703_mae_5.803627611715583_mse_8.761706717939719.pth'
 )
 

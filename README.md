@@ -1,10 +1,11 @@
 # DRNet for  Video Indvidual Counting (CVPR 2022)
 ## Introduction
-This is the official PyTorch implementation of paper: [**DR.VIC: Decomposition and Reasoning for Video Individual Counting**](https://arxiv.org/abs/2203.12335). Different from the single image counting methods, it counts the total number of the pedestrians in a video sequence with a person in different frames only being calculated once. DRNet decomposes this new task to estimate the initial crowd number in the first frame and integrate differential crowd numbers in a set of following image pairs (namely current frame and preceding frame). 
-![framework](./figures/framework1.png)
+This is the official PyTorch implementation of paper: [**STEERER: Resolving Scale Variations for Counting and Localization via Selective Inheritance Learning**](https://arxiv.org/abs/2203.12335), which effectively addressed the issue of scale variations for object counting and localizaioion, demonstrating the state-of-arts counting and localizaiton perfornmance for different catogories, such as crowd,vehicle, crops and trees. 
+
+<!-- ![framework](./figures/framework1.png) -->
 
 # Catalog
-- [x] Testing Code (2022.3.19)
+- [x] Training and Testing Code (2023.08.18)
 - [x] PyTorch pretrained models (2022.3.19)
 - [x] Training Code 
   - [x] HT21 
@@ -25,18 +26,48 @@ This is the official PyTorch implementation of paper: [**DR.VIC: Decomposition a
     pip install -r requirements.txt
     ```
 
--  [PreciseRoIPooling](https://github.com/vacancy/PreciseRoIPooling) for extracting the feature descriptors
+- Datasets, Initial Weight and Pretrained Models are available at the [OneDrive](https://connectpolyu-my.sharepoint.com/:f:/g/personal/23040302r_connect_polyu_hk/ErX-l0MtTWtJmSilWuxUrOgBMRYqDSbYuAdoi6a-9Jtlmg?e=OdyvTs) net disk,  The shared  directory tree should be look like this, and you can selectively dolownd the files that you want to train or inference:
+````bash
+$SEG_ROOT/data
+├── ProcessedData
+│   ├── SHHB
+│   │   ├── images     # the input images
+│   │   ├── jsons      # the annotated labels
+│   │   ├── train.txt   # the image name of train set 
+│   │   ├── test.txt    # the image name of test set
+│   │   ├── test_gt_loc.txt  # the localization labels for evaluation
+│   │   └──train_gt_loc.txt  # the localization labels for train set (not used)
+│   ├── SHHA
+│   ├── NWPU
+│   ├── QNRF
+│   ├── JHU
+│   ├── MTC
+│   ├── JHU
 
-      Note: the PreciseRoIPooling [1] module is included in the repo, but it's likely to have some problems when running the code: 
-
-      1. If you are prompted to install ninja, the following commands will help you.  
-            ```bash
-            wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-linux.zip
-            sudo unzip ninja-linux.zip -d /usr/local/bin/
-            sudo update-alternatives --install /usr/bin/ninja ninja /usr/local/bin/ninja 1 --force 
-            ```
-      2. If you encounter errors when compiling the PreciseRoIPooling, you can look up the original repo's [issues](https://github.com/vacancy/PreciseRoIPooling/issues) for help. One solution to the most common errors can be found in this [blog](https://blog.csdn.net/weixin_42098198/article/details/124756432?spm=1001.2014.3001.5502).
-- Datasets 
+├── lip
+│   ├── TrainVal_images
+│   │   ├── train_images
+│   │   └── val_images
+│   └── TrainVal_parsing_annotations
+│       ├── train_segmentations
+│       ├── train_segmentations_reversed
+│       └── val_segmentations
+├── pascal_ctx
+│   ├── common
+│   ├── PythonAPI
+│   ├── res
+│   └── VOCdevkit
+│       └── VOC2010
+├── list
+│   ├── cityscapes
+│   │   ├── test.lst
+│   │   ├── trainval.lst
+│   │   └── val.lst
+│   ├── lip
+│   │   ├── testvalList.txt
+│   │   ├── trainList.txt
+│   │   └── valList.txt
+  
    - **HT21** dataset: Download CroHD dataset from this [link](https://motchallenge.net/data/Head_Tracking_21/). Unzip ```HT21.zip``` and place ``` HT21``` into the folder (```Root/dataset/```). 
    - **SenseCrowd** dataset: Download the dataset from [Baidu disk](https://pan.baidu.com/s/1OYBSPxgwvRMrr6UTStq7ZQ?pwd=64xm) or from the original dataset [link](https://github.com/HopLee6/VSCrowd-Dataset). 
    - Download the lists of `train/val/test` sets at [link1](https://1drv.ms/u/s!AgKz_E1uf260nWeqa86-o9FMIqMt?e=0scDuw) or [link2](https://pan.baidu.com/s/13X3-egn0fYSd6NUTxB4cuw?pwd=ew8f), and place them to each dataset folder, respectively.   

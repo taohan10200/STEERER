@@ -5,12 +5,9 @@
 # ------------------------------------------------------------------------------
 import json
 import os
-
-import sys
 import _init_paths
 import pprint
 import logging
-import time
 import timeit
 from pathlib import Path
 import numpy as np

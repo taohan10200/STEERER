@@ -6,27 +6,23 @@
 import os
 import pprint
 import sys
-# import _init_paths
+import _init_paths
 from lib.core.Counter import Counter
 from lib.utils.utils import create_logger, random_seed_setting
 from lib.utils.modelsummary import get_model_summary
 from lib.core.cc_function import test_loc
 import datasets
-import lib_cls.models as models
 import torch.backends.cudnn as cudnn
-import torch.nn as nn
 import torch
 import numpy as np
 import timeit
-import time
 import logging
 import argparse
 from lib.models.build_counter import Baseline_Counter
-
+from lib.utils.dist_utils import (
+    get_dist_info,
+    init_dist)
 from mmcv import Config, DictAction
-# config.merge_from_file(sys.argv[2])
-# os.environ["CUDA_VISIBLE_DEVICES"] = \
-#     ','.join((map(str, config.GPUS)))  # str(config.GPUS).strip('(').strip(')')
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Test crowd counting network')
@@ -35,10 +31,18 @@ def parse_args():
                         help='experiment configure file name',
                         required=True,
                         type=str)
+    parser.add_argument('--checkpoint',
+                    help='experiment configure file name',
+                    required=True,
+                    type=str)
     parser.add_argument('opts',
                         help="Modify config options using the command-line",
                         default=None,
                         nargs=argparse.REMAINDER)
+    parser.add_argument('--launcher',
+                        choices=['none', 'pytorch', 'slurm', 'mpi','torchrun'],
+                        default='none',
+                        help='job launcher')
     parser.add_argument("--local_rank", type=int, default=0)
     parser.add_argument(
         '--cfg-options',
@@ -82,7 +86,20 @@ def main():
 
     logger.info(pprint.pformat(args))
     logger.info(pprint.pformat(config))
+    
+    logger.info('GPU idx:'+os.environ['CUDA_VISIBLE_DEVICES'])
+    gpus = config.gpus
+    distributed = torch.cuda.device_count() > 1
+    if distributed:
+        torch.cuda.set_device(args.local_rank)
 
+        init_dist(args.launcher)
+        if args.launcher == 'pytorch':
+            args.local_rank = int(os.environ["LOCAL_RANK"])
+        else:
+            rank, world_size = get_dist_info()
+            args.local_rank = rank
+    
     # cudnn related setting
     random_seed_setting(config)
 
@@ -91,12 +108,9 @@ def main():
 
     model = Baseline_Counter(config.network,config.dataset.den_factor,config.train.route_size,device)
 
-    # dump_input = torch.rand(
-    #     (1, 3, config.TRAIN.IMAGE_SIZE[1], config.TRAIN.IMAGE_SIZE[0])
-    # )
-    # logger.info(get_model_summary(model.cuda(), dump_input.cuda()))
-
-    if config.test.model_file:
+    if args.checkpoint:
+        model_state_file = args.checkpoint
+    elif config.test.model_file:
         model_state_file = config.test.model_file
     else:
         model_state_file = os.path.join(final_output_dir,
@@ -104,14 +118,8 @@ def main():
     logger.info('=> loading model from {}'.format(model_state_file))
 
     pretrained_dict = torch.load(model_state_file)
-    model_dict = model.state_dict()
-    # pretrained_dict = {k[6:]: v for k, v in pretrained_dict.items()
-    #                    if k[6:] in model_dict.keys()}
-    # for k, _ in pretrained_dict.items():
-    #     logger.info(
-    #         '=> loading {} from pretrained model'.format(k))
-    # model_dict.update(pretrained_dict)
-    model.load_state_dict(pretrained_dict,strict=False)
+
+    model.load_state_dict(pretrained_dict,strict=True)
 
     model = model.to(device)
 
@@ -148,16 +156,10 @@ def main():
                nae: {: 4.4f}, Class IoU: '.format(mae,
                                                   mse, nae)
         logging.info(msg)
-        # logging.info(IoU_array)
-    # elif 'test' in config.DATASET.TEST_SET:
-    #     test(config,
-    #          test_dataset,
-    #          testloader,
-    #          model,
-    #          sv_dir=final_output_dir)
+
 
     end = timeit.default_timer()
-    logger.info('Mins: %d' % np.int((end - start) / 60))
+    logger.info('Mins: %d' % np.int32((end - start) / 60))
     logger.info('Done')
 
 

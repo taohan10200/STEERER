@@ -7,16 +7,3 @@ dict_recursive_update
 yacs>=0.1.5
 tensorboardX==2.6.2
 fvcore
-
-opencv-python==3.4.1.15
-shapely==1.6.4
-Cython
-
-pandas
-pyyaml
-json_tricks
-scikit-image
-
-tensorboardX>=1.6
-
-ninja
