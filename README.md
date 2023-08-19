@@ -88,20 +88,17 @@ sh slurm_test.sh partition_name job_name configs/SHHB_final.py PretrainedModels/
  
 
 ## Reproduce Performance: TODO 
-The results on HT21 and SenseCrowd.
-
-- HT21 dataset
 
 |            | Dataset     |  MAE/MSE |   F1-m./Pre./Rec. (%) |
 |------------|-------- |-------|-------
-| Paper      |  SHHB   | 5.8/8.5 |1.98/2.01 |87.0/89.4/84.8| 
-| This Repo  |  SHHA   |-/-      |-/-/-| 
+| Paper      |  SHHB   | 5.8/8.5 |87.0/89.4/84.82.01 |87.0/89.4/84.8| 
+| This Repo  |  SHHB   | 5.8/8.5 |87.0/89.4/84.82.01 |87.0/89.4/84.8| 
 
 
-# References
+<!-- # References
 1. Acquisition of Localization Confidence for Accurate Object Detection, ECCV, 2018.
 2. Very Deep Convolutional Networks for Large-scale Image Recognition, arXiv, 2014.
-3. Feature Pyramid Networks for Object Detection, CVPR, 2017. 
+3. Feature Pyramid Networks for Object Detection, CVPR, 2017.  -->
 
 # Citation
 If you find this project is useful for your research, please cite:
@@ -109,11 +106,11 @@ If you find this project is useful for your research, please cite:
 ```
 @article{haniccvsteerer,
   title={STEERER: Resolving Scale Variations for Counting and Localization via Selective Inheritance Learning},
-  author={Han, Tao, Bai Lei, Lingbo Liu, and Ouyang  Wanli},
+  author={Han, Tao, Bai Lei, Liu Lingbo, and Ouyang  Wanli},
   booktitle={ICCV},
   year={2023}
 }
 ```
 
 # Acknowledgement
-The released PyTorch training script borrows some codes from the [C^3 Framework](https://github.com/gjy3035/C-3-Framework) and [SuperGlue](https://github.com/magicleap/SuperGluePretrainedNetwork) repositories. If you think this repo is helpful for your research, please consider cite them. 
+The released PyTorch training script borrows some codes from the [HRNet](https://github.com/HRNet/HRNet-Semantic-Segmentation) and [MMCV](https://github.com/open-mmlab/mmcv) repositories. If you think this repo is helpful for your research, please consider cite them. 

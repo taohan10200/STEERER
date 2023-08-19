@@ -12,11 +12,12 @@ network = dict(
     sub_arch='hrnet48',
     counter_type = 'withMOE', #'withMOE' 'baseline'
     resolution_num = [0,1,2,3],
+    loss_weight = [1., 1./2, 1./4, 1./8],
     sigma = [4],
     gau_kernel_size = 15,
-    baseline_loss = True,
+    baseline_loss = False,
     pretrained_backbone="../PretrainedModels/hrnetv2_w48_imagenet_pretrained.pth",
-    # '/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/imagenet/CCFBackbone_hrt_base/ccformer_b_2022-08-16-14-59/Ep_142_acc1_75.12800201416016.pth',
+
 
     head = dict(
         type='CountingHead',
@@ -61,7 +62,6 @@ lr_config = dict(
     MIN_LR= 1.0e-07
   )
 
-total_epochs = 210
 
 log_config = dict(
     interval=50,
@@ -77,16 +77,15 @@ train = dict(
     batch_size_per_gpu=6,
     shuffle=True,
     begin_epoch=0,
-    end_epoch=1000,
+    end_epoch=400,
     extra_epoch=0,
     extra_lr = 0,
     #  RESUME: true
-    resume_path=None, #'./exp/SHHA/MocHRBackbone_hrnet48/SHHA_mocHR_small_2022-09-26-20-30', #'/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/SHHB/MocHRBackbone_hrnet48/mocHR_small_2022-09-18-14-54/', #'/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-13-16-28/', # '/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-09-21-07/', #'./exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-06-20-35/', #'/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-06-13-03/', #'./exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-04-19-21/', #'./exp/NWPU/MocBackbone_moc_small/moc_small_2022-08-31-14-41/', #'./exp/NWPU/seg_hrnet/hrt_small_2022-08-07-23-15/',
-    # './exp/NWPU/seg_hrnet/seg_hrnet_w48_2022-05-27-15-03'
+    resume_path=None,
     flip=True,
     multi_scale=True,
-    scale_factor=16,
-    val_span = [-1000, -600, -400, -200, -200, -100, -100],
+    scale_factor=(0.5, 1/0.5),
+    val_span = [ -400, -200, -200, -100, -100],
     downsamplerate= 1,
     ignore_label= 255
 )
@@ -96,14 +95,18 @@ test = dict(
     image_size=(1024, 2048),  # height, width
     base_size=2048,
     loc_base_size=2048,
+    loc_threshold=0.2,
     batch_size_per_gpu=1,
     patch_batch_size=16,
     flip_test=False,
     multi_scale=False,
 
-    # model_file= './exp/SHHA/MocHRBackbone_hrnet48/SHHA_mocHR_small_2022-09-22-20-47_baseline/Ep_319_mae_57.58954155052101_mse_96.65610938266916.pth'
-    model_file= './exp/SHHA/MocCatBackbone_hrnet48/SHHA_catHR_small_2022-09-27-16-47_best/Ep_671_mae_54.692220457307585_mse_90.16555071890785.pth'
-    # model_file= './exp/SHHA/MocHRBackbone_hrnet48/SHHA_mocHR_small_2022-09-23-11-25_refence_512/Ep_559_mae_56.20006972092848_mse_96.45367604706817.pth'
+
+    # For crowd counting
+    # model_file= './exp/SHHA/MocHRBackbone_hrnet48/SHHA_HR_2022-10-25-20-1_251_mae_54.5_mse_86.9/Ep_251_mae_54.571960030021245_mse_86.92610575458059.pth'
+
+    # For localization
+    model_file='', # './exp/SHHA/MocHRBackbone_hrnet48/SHHA_HR_2022-10-25-20-1_251_mae_54.5_mse_86.9/final_state.pth'
 )
 
 CUDNN = dict(
