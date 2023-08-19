@@ -30,7 +30,7 @@ cd ${STEERER}
 pip install -r requirements.txt
 ```
 
-- **Prepare datasets and weights.** Pretrained models are available at the [OneDrive](https://connectpolyu-my.sharepoint.com/:f:/g/personal/23040302r_connect_polyu_hk/ErX-l0MtTWtJmSilWuxUrOgBMRYqDSbYuAdoi6a-9Jtlmg?e=OdyvTs) net disk,  The shared  should be look like this, and you can selectively dolownd the files that you want to train or inference. Before starting your training and testing, you should organiza your project as the following directory tree. 
+- **Prepare datasets and weights.** Pretrained models are available at the [OneDrive](https://connectpolyu-my.sharepoint.com/:f:/g/personal/23040302r_connect_polyu_hk/ErX-l0MtTWtJmSilWuxUrOgBMRYqDSbYuAdoi6a-9Jtlmg?e=OdyvTs) net disk,  and you can selectively dolownd the dataset that you want to train or inference. Before starting your training and testing, you should organiza your project as the following directory tree. 
 
 ````bash
 
