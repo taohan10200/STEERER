@@ -16,7 +16,6 @@ network = dict(
     gau_kernel_size = 15,
     baseline_loss = False,
     pretrained_backbone="../PretrainedModels/hrnetv2_w48_imagenet_pretrained.pth",
-    # '/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/imagenet/CCFBackbone_hrt_base/ccformer_b_2022-08-16-14-59/Ep_142_acc1_75.12800201416016.pth',
 
     head = dict(
         type='CountingHead',

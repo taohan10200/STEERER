@@ -11,7 +11,7 @@ This is the official PyTorch implementation of paper: [**STEERER: Resolving Scal
 
 # Getting started 
 
-## preparatoin 
+## preparation 
 
 - **Clone this repo** in the directory (```root/```):
 
