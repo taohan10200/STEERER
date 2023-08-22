@@ -2,7 +2,7 @@
 gpus = (0, 1,)
 log_dir = 'exp'
 workers = 12
-print_freq = 30
+print_freq = 500
 seed = 3035
 
 network = dict(

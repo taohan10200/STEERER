@@ -57,7 +57,7 @@ class DrCounter(nn.Module):
 
       self.weight = weight
       self.route_size = route_size
-      self.extern_count= 0
+      self.extern_count = 0
   def forward(self, inputs, labels, mode='train'):
       def vis(data, path='./exp/debug.png'):
           import cv2
@@ -69,17 +69,7 @@ class DrCounter(nn.Module):
       self.extern_count +=1
       out_list = self.model(inputs)
       B_num, C_num, H_num, W_num =  out_list[0].size()
-      # outputs = F.upsample(
-      #   input=outputs, scale_factor=4, mode='bilinear')
-      # labels = labels.unsqueeze(1)
-      # idx = torch.where(labels == 1)
-      # import pdb
-      # pdb.set_trace()
-      # for i, data in enumerate([1:]):
-      #   label = torch.zeros_like(data)
-      #   label[idx[0],idx[1], (idx[2]/(2**(i+1))).long(),(idx[3]/(2**(i+1))).long() ] = 1
-      #   label =  self.gaussian(label)*self.weight
-      #   label_list.append(label)
+
       label_list = []
       for label in labels:
           label_list.append( self.gaussian(label.unsqueeze(1))*self.weight)
@@ -101,6 +91,10 @@ class DrCounter(nn.Module):
       mask_idx = torch.cat(errorInslice_list, dim=1)
 
       mask_idx = mask_idx.argmin(dim=1, keepdim=True)
+      
+      import pdb
+      pdb.set_trace()
+      
       mask = torch.zeros_like(mask_idx).repeat(1,len(out_list),1)
       mask.scatter_(1,mask_idx, 1)
       mask = mask.view(mask.size(0),mask.size(1),patch_h, patch_w).float()
@@ -133,8 +127,6 @@ class DrCounter(nn.Module):
             pre_slice = F.unfold(out_list[i],  kernel,stride=kernel)
             gt_slice  = F.unfold(label_list[i], kernel,stride=kernel)
             slice_idx = (mask_idx == i)
-            # pre_slice = (slice_idx * pre_slice)
-            # gt_slice = (slice_idx * gt_slice)
             B, KK, L = pre_slice.size()
 
             pre_slice = pre_slice.transpose(2,1).view(B, L, kernel[0], kernel[1])
