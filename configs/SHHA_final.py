@@ -14,7 +14,7 @@ network = dict(
     resolution_num = [0,1,2,3],
     loss_weight = [1., 1./2, 1./4, 1./8],
     sigma = [4],
-    gau_kernel_size = 15,
+    gau_kernel_size = 11,
     baseline_loss = False,
     pretrained_backbone="../PretrainedModels/hrnetv2_w48_imagenet_pretrained.pth",
 
@@ -35,7 +35,7 @@ dataset = dict(
     train_set='train.txt',
     loc_gt = 'test_gt_loc.txt',
     num_classes=len(network['resolution_num']),
-    den_factor=100,
+    den_factor=50,
     extra_train_set =None
 )
 
@@ -77,7 +77,7 @@ train = dict(
     batch_size_per_gpu=6,
     shuffle=True,
     begin_epoch=0,
-    end_epoch=400,
+    end_epoch=600,
     extra_epoch=0,
     extra_lr = 0,
     #  RESUME: true
@@ -85,7 +85,7 @@ train = dict(
     flip=True,
     multi_scale=True,
     scale_factor=(0.5, 1/0.5),
-    val_span = [ -400, -200, -200, -100, -100],
+    val_span = [ -600, -400, -200, -100, -100],
     downsamplerate= 1,
     ignore_label= 255
 )

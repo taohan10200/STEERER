@@ -5,6 +5,7 @@
 *.out
 job/
 exp/
+scale_generalization/
 nwp.egg-info/
 .vscode/
 requirements_1.0.txt
