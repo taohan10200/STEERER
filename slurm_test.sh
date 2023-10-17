@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
-
 # set -x
-
-
 PARTITION=$1
 JOB_NAME=$2
 CONFIG=$3
@@ -17,7 +14,6 @@ CPUS_PER_TASK=${CPUS_PER_TASK:-5}
 PY_ARGS=${@:5}
 
 PYTHONPATH="$(dirname $0)/..":$PYTHONPATH \
-export TORCH_DISTRIBUTED_DEBUG="detail"
 source /mnt/petrelfs/hantao.dispatch/anaconda3/bin/activate STEERER
 srun -p ${PARTITION} \
     --job-name=${JOB_NAME} \

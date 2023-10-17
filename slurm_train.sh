@@ -26,5 +26,6 @@ srun -p ${PARTITION} \
     --cpus-per-task=${CPUS_PER_TASK} \
     --quotatype=reserved \
     --kill-on-bad-exit=1 \
+    -w SH-IDC1-10-140-24-96\
     ${SRUN_ARGS} \
     python -u tools/train_cc.py --cfg ${CONFIG} --launcher="slurm" ${PY_ARGS}

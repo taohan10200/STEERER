@@ -117,7 +117,7 @@ def main():
     pretrained_dict = torch.load(model_state_file)
 
 
-    model.load_state_dict(pretrained_dict,strict=True)
+    model.load_state_dict(pretrained_dict,strict=False)
 
 
     model = model.to(device)
@@ -140,7 +140,7 @@ def main():
         pin_memory=True)
 
     start = timeit.default_timer()
-    if 'val' in config.dataset.test_set:
+    if 'test' in  config.dataset.test_set or 'val' in config.dataset.test_set:
 
         mae, mse, nae,save_count_txt = test_cc(config, test_dataset, testloader, model,
                                 test_dataset.mean, test_dataset.std,

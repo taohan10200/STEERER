@@ -1,4 +1,4 @@
-# STEERER for  Object Counting and Localizaiotion (ICCV 2023)
+# STEERER for Object Counting and Localizaiotion (ICCV 2023)
 ## Introduction
 This is the official PyTorch implementation of paper: [**STEERER: Resolving Scale Variations for Counting and Localization via Selective Inheritance Learning**](https://arxiv.org/abs/2308.10468), which effectively addressed the issue of scale variations for object counting and localizaioion, demonstrating the state-of-arts counting and localizaiton performance for different catagories, such as crowd,vehicle, crops and trees. 
 
@@ -76,14 +76,14 @@ To reproduce the performance, run the similry command like training,
 
 ```bash
 # $1 is the configuration file, $2 is the checkpoint path, $3 is the GPU_ID, only support single GPU. 
-sh test.sh configs/SHHB_final.py PretrainedModels/SHHB.pth 1
+sh test.sh configs/SHHB_final.py ../PretrainedModels/SHHB.pth 1
 
 ```
 or if you are trainging on the computer cluster, you could be run
 
 ```bash
 # $3 the configuration file,  $4 is the checkpoint path, $5 is the number of GPUs
-sh slurm_test.sh partition_name job_name configs/SHHB_final.py PretrainedModels/SHHB.pth 1
+sh slurm_test.sh partition_name job_name configs/SHHB_final.py ../PretrainedModels/SHHB.pth 1
 ```
  
 
@@ -91,8 +91,8 @@ sh slurm_test.sh partition_name job_name configs/SHHB_final.py PretrainedModels/
 
 |            | Dataset     |  MAE/MSE |   F1-m./Pre./Rec. (%) | Pretraied Model | Dataset |
 |------------|-------- |-------|-------|-------|------|
-| This Repo      |  SHHB   | 5.8/8.5 |87.0/89.4/84.82.01 | [weights](https://connectpolyu-my.sharepoint.com/:u:/g/personal/23040302r_connect_polyu_hk/ET1CWuFQ8vJPnsO4h_xCAMQBfMtoU1vuYOziMadFEzmicQ?e=dTleK7)| [Dataset](https://connectpolyu-my.sharepoint.com/:u:/g/personal/23040302r_connect_polyu_hk/ETfh8zPYbBREg-mJwMEtqTIB6sucZB4g1xJpVu-UN9dLZw?e=IfRT2w)|
-
+| This Repo      |  SHHB   | 5.8/8.5 |87.0/89.4/84.82.01 | [weights](https://pjlab-my.sharepoint.cn/:u:/g/personal/hantao_dispatch_pjlab_org_cn/ET5_eR8n2e5Akm19QvajQJcBTbryGy545hImwr2yzeKMSw?e=J9mwUY)| [Dataset](https://pjlab-my.sharepoint.cn/:u:/g/personal/hantao_dispatch_pjlab_org_cn/Ebo6dbV4hnlCtzFo3S5KW-ABwlCLLYWYADLOyYMGWJ6Qrw?e=L0Y0Wi)|
+| This Repo      |  TRANSCOS   | 1.8/3.1 |-/-/-/ | [weights](https://pjlab-my.sharepoint.cn/:u:/g/personal/hantao_dispatch_pjlab_org_cn/EQHeaFzaV_ZAvIdmpbz_lR8BI8a2YzWoka-2Xa__O-O5kA?e=6u8lhT)| [Dataset](https://connectpolyu-my.sharepoint.com/:u:/g/personal/23040302r_connect_polyu_hk/ETfh8zPYbBREg-mJwMEtqTIB6sucZB4g1xJpVu-UN9dLZw?e=IfRT2w)|
 
 
 

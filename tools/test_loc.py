@@ -119,7 +119,7 @@ def main():
 
     pretrained_dict = torch.load(model_state_file)
 
-    model.load_state_dict(pretrained_dict,strict=True)
+    model.load_state_dict(pretrained_dict,strict=False)
 
     model = model.to(device)
 

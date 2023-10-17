@@ -8,8 +8,9 @@ GPUS=$3
 
 source /mnt/petrelfs/hantao.dispatch/anaconda3/bin/activate STEERER
 
-export CUDA_VISIBLE_DEVICES=${GPUS:-"1,2"}
+# export CUDA_VISIBLE_DEVICES=${GPUS:-"1"}
 
-python  tools/test_cc.py \
+python  tools/test_loc.py \
         --cfg=$CONFIG \
         --checkpoint=$CHECKPOINT \
+        --launcher pytorch ${@:5}
