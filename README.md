@@ -30,7 +30,7 @@ cd ${STEERER}
 pip install -r requirements.txt
 ```
 
-- **Prepare datasets and weights.** Pretrained models are available at the [OneDrive](https://connectpolyu-my.sharepoint.com/:f:/g/personal/23040302r_connect_polyu_hk/ErX-l0MtTWtJmSilWuxUrOgBMRYqDSbYuAdoi6a-9Jtlmg?e=OdyvTs) net disk,  and you can selectively dolownd the dataset that you want to train or inference. Before starting your training and testing, you should organiza your project as the following directory tree. 
+- **Prepare datasets and weights.** Pretrained models are available at the [OneDrive](https://pjlab-my.sharepoint.cn/:f:/g/personal/hantao_dispatch_pjlab_org_cn/EpdTPZDeIhxCpR5gr46iXyYBZXgpMxNTBk0rqqQc6po3UQ?e=ewxq7i) net disk,  and you can selectively dolownd the dataset that you want to train or inference. Before starting your training and testing, you should organiza your project as the following directory tree. 
 
 ````bash
 
@@ -92,7 +92,7 @@ sh slurm_test.sh partition_name job_name configs/SHHB_final.py ../PretrainedMode
 |            | Dataset     |  MAE/MSE |   F1-m./Pre./Rec. (%) | Pretraied Model | Dataset |
 |------------|-------- |-------|-------|-------|------|
 | This Repo      |  SHHB   | 5.8/8.5 |87.0/89.4/84.82.01 | [weights](https://pjlab-my.sharepoint.cn/:u:/g/personal/hantao_dispatch_pjlab_org_cn/ET5_eR8n2e5Akm19QvajQJcBTbryGy545hImwr2yzeKMSw?e=J9mwUY)| [Dataset](https://pjlab-my.sharepoint.cn/:u:/g/personal/hantao_dispatch_pjlab_org_cn/Ebo6dbV4hnlCtzFo3S5KW-ABwlCLLYWYADLOyYMGWJ6Qrw?e=L0Y0Wi)|
-| This Repo      |  TRANSCOS   | 1.8/3.1 |-/-/-/ | [weights](https://pjlab-my.sharepoint.cn/:u:/g/personal/hantao_dispatch_pjlab_org_cn/EQHeaFzaV_ZAvIdmpbz_lR8BI8a2YzWoka-2Xa__O-O5kA?e=6u8lhT)| [Dataset](https://connectpolyu-my.sharepoint.com/:u:/g/personal/23040302r_connect_polyu_hk/ETfh8zPYbBREg-mJwMEtqTIB6sucZB4g1xJpVu-UN9dLZw?e=IfRT2w)|
+| This Repo      |  TRANSCOS   | 1.8/3.1 |95.1/91.7/93.4/ | [weights](https://pjlab-my.sharepoint.cn/:u:/g/personal/hantao_dispatch_pjlab_org_cn/EQHeaFzaV_ZAvIdmpbz_lR8BI8a2YzWoka-2Xa__O-O5kA?e=6u8lhT)| [Dataset](https://connectpolyu-my.sharepoint.com/:u:/g/personal/23040302r_connect_polyu_hk/ETfh8zPYbBREg-mJwMEtqTIB6sucZB4g1xJpVu-UN9dLZw?e=IfRT2w)|
 
 
 
