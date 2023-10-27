@@ -30,6 +30,7 @@ network = dict(
 
 dataset = dict(
     name='SHHA',
+    
     root='../ProcessedData/SHHA/',
     test_set='test_val.txt',
     train_set='train.txt',
@@ -100,7 +101,6 @@ test = dict(
     patch_batch_size=16,
     flip_test=False,
     multi_scale=False,
-
 
     # For crowd counting
     # model_file= './exp/SHHA/MocHRBackbone_hrnet48/SHHA_HR_2022-10-25-20-1_251_mae_54.5_mse_86.9/Ep_251_mae_54.571960030021245_mse_86.92610575458059.pth'

@@ -16,7 +16,8 @@ CPUS_PER_TASK=${CPUS_PER_TASK:-5}
 PY_ARGS=${@:5}
 
 PYTHONPATH="$(dirname $0)/..":$PYTHONPATH \
-export TORCH_DISTRIBUTED_DEBUG="detail"
+
+
 source /mnt/petrelfs/hantao.dispatch/anaconda3/bin/activate STEERER
 srun -p ${PARTITION} \
     --job-name=${JOB_NAME} \
@@ -24,8 +25,9 @@ srun -p ${PARTITION} \
     --ntasks=${GPUS} \
     --ntasks-per-node=${GPUS_PER_NODE} \
     --cpus-per-task=${CPUS_PER_TASK} \
-    --quotatype=reserved \
+    --quotatype=spot \
     --kill-on-bad-exit=1 \
-    -w SH-IDC1-10-140-24-96\
+    --time=18800 \
+    --preempt \
     ${SRUN_ARGS} \
     python -u tools/train_cc.py --cfg ${CONFIG} --launcher="slurm" ${PY_ARGS}

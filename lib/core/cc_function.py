@@ -131,7 +131,7 @@ def train(config, epoch, num_epoch, epoch_iters, num_iters,
             writer_dict['train_global_steps'] = global_steps + 1
             image = images[0]
 
-            if i_iter % 2*config.print_freq == 0:
+            if i_iter % 20*config.print_freq == 0:
                 for t, m, s in zip(image, mean, std):
                     t.mul_(s).add_(m)
 

@@ -9,6 +9,7 @@ network = dict(
     sub_arch='hrnet48',
     counter_type = 'withMOE', #'withMOE' 'baseline'
     resolution_num = [0,1,2,3],
+    loss_weight = [1., 1./2, 1./4, 1./8],
     sigma = [4],
     gau_kernel_size = 15,
     baseline_loss = False,
@@ -24,23 +25,22 @@ network = dict(
     )
 
 dataset = dict(
-    name='NWPU',
-    root='../ProcessedData/NWPU/',
-    test_set='test_val.txt',
+    name='FDST',
+    root='../ProcessedData/FDST/',
+    test_set='test.txt',
     train_set='train.txt',
     loc_gt = 'test_gt_loc.txt',
-    num_classes=len(network['resolution_num']),
-    den_factor=100,
+    num_classes= len(network['resolution_num']),
+    den_factor=1000,
     extra_train_set =None
 )
-
 
 
 optimizer = dict(
     NAME='adamw',
     BASE_LR=1e-5,
     BETAS=(0.9, 0.999),
-    WEIGHT_DECAY=1e-4,
+    WEIGHT_DECAY=1e-2,
     EPS= 1.0e-08,
     MOMENTUM= 0.9,
     AMSGRAD = False,
@@ -68,7 +68,7 @@ log_config = dict(
 
 train = dict(
     counter='normal',
-    image_size=(768, 768),  # height width
+    image_size=(768,768),  # height width
     route_size=(256, 256),  # height, width
     base_size=2048,
     batch_size_per_gpu=8,
@@ -78,12 +78,11 @@ train = dict(
     extra_epoch=0,
     extra_lr = 0,
     #  RESUME: true
-    resume_path=None,#'./exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-19-20-52/', #'/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-19-01-39/',#'/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-18-10-29/', #'/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-15-15-22/', #'/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-13-16-28/', # '/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-09-21-07/', #'./exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-06-20-35/', #'/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-06-13-03/', #'./exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-04-19-21/', #'./exp/NWPU/MocBackbone_moc_small/moc_small_2022-08-31-14-41/', #'./exp/NWPU/seg_hrnet/hrt_small_2022-08-07-23-15/',
-    # './exp/NWPU/seg_hrnet/seg_hrnet_w48_2022-05-27-15-03'
+    resume_path=None, 
     flip=True,
     multi_scale=True,
-    scale_factor=16,
-    val_span =  [-1000, -600, -400, -200, -200, -100, -100],
+    scale_factor=(0.5, 1.0/0.5),
+    val_span = [-1000, -600, -400, -200, -200, -100, -100],
     downsamplerate= 1,
     ignore_label= 255
 )
@@ -92,15 +91,18 @@ train = dict(
 test = dict(
     image_size=(1024, 2048),  # height, width
     base_size=2048,
-    loc_base_size=None,
+    loc_base_size=2048,
+    loc_threshold=0.2,
     batch_size_per_gpu=1,
     patch_batch_size=16,
     flip_test=False,
     multi_scale=False,
-    model_file= './exp/NWPU/MocHRBackbone_hrnet48/NWPU_2048_HR_2022-10-15-20-09/Ep_601_mae_66.13326626406997_mse_332.3912429674423.pth', 
+    model_file = './exp/FDST/MocHRBackbone_hrnet48/FDST_HR_base_2022-11-11-00-59/Ep_13_mae_0.7655179897944132_mse_1.0148959853684598.pth'
 )
 
 CUDNN = dict(
     BENCHMARK= True,
     DETERMINISTIC= False,
     ENABLED= True)
+
+
