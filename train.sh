@@ -22,21 +22,33 @@ set -x
 # set -x
 
 CONFIG=$1
-GPUS=$2
+GPUS_ID=${2:-0}    #the default gpu_id is 0 
+PORT=${3:-29000}   #the default gpu_id is 1
 NNODES=${NNODES:-1}
 NODE_RANK=${NODE_RANK:-0}
-PORT=${PORT:-29000}
-MASTER_ADDR=${MASTER_ADDR:-"127.0.0.1"}
-source /mnt/petrelfs/hantao.dispatch/anaconda3/bin/activate nwp
 
-echo "export CUDA_VISIBLE_DEVICES=$3"
-export CUDA_VISIBLE_DEVICES=${4:-"1,2"}
-PYTHONPATH="$(dirname $0)/..":$PYTHONPATH \
-python -m torch.distributed.launch \
-    --node_rank=$NODE_RANK \
-    --master_addr=$MASTER_ADDR \
-    --nproc_per_node=$GPUS \
-    --master_port=$PORT \
-    $(dirname "$0")/train_cc.py \
-    --cfg=$CONFIG \
-    --launcher pytorch ${@:5}
+MASTER_ADDR=${MASTER_ADDR:-"127.0.0.1"}
+
+GPU_NUM=0
+
+for ((i=0; i<${#GPUS_ID}; i++)); do
+    if [[ ${GPUS_ID:i:1} =~ [0-9] ]]; then
+        ((GPU_NUM++))
+    fi
+done
+
+source /mnt/petrelfs/hantao.dispatch/anaconda3/bin/activate STEERER
+
+echo "export CUDA_VISIBLE_DEVICES=$GPUS_ID"
+export CUDA_VISIBLE_DEVICES=${GPUS_ID:-"0"}
+
+
+torchrun --nproc_per_node=${GPU_NUM} --master_port ${PORT} tools/train_cc.py --cfg ${CONFIG} 
+
+# --launcher="pytorch"
+# python -m torch.distributed.launch \
+#     --node_rank=$NODE_RANK \
+#     --master_addr=$MASTER_ADDR \
+#     --nproc_per_node=$GPU_NUM \
+#     --master_port=$PORT \
+#     tools/train_cc.py --cfg=$CONFIG --launcher="pytorch"

@@ -46,7 +46,6 @@ class NWPU(BaseDataset):
         self.multi_scale = multi_scale
         self.flip = flip
         self.scale_factor =scale_factor
-
         a = np.arange(scale_factor[0],1.,0.05)
         # b = np.linspace(1, scale_factor[1],a.shape[0])
 
@@ -114,10 +113,13 @@ class NWPU(BaseDataset):
             info = json.load(f)
         points =  np.array(info['points']).astype('float32').reshape(-1,2)
 
+        ratio = 1.0
         if self.base_size is not  None:
             image,points,ratio = self.image_points_resize(image, self.base_size,points)
-        else:
-            ratio = 1.
+
+        if self.min_size is not None:
+            image,points,ratio = self.check_minimum_length(image, self.min_size, points)
+            
         if 'test'in self.list_path :
             image =self.check_img(image,32)
             image = self.input_transform(image)
@@ -154,7 +156,30 @@ class NWPU(BaseDataset):
             real_w = 0
         image = self.pad_image(image, size=(real_h, real_w), h=h,w=w, padvalue= (0.0, 0.0, 0.0))
         return image
-
+    def check_minimum_length(self, image, min_size, label=None):
+        h, w = image.shape[:2]
+        ratio = 1.
+        if min(h, w)>=min_size:
+            if label is not None:
+                return image, label,ratio
+            else:
+                return image,ratio
+        else:
+            if h <= w:
+                new_h = min_size
+                new_w = np.int64(w * min_size / h + 0.5)
+                ratio = min_size/h
+            else:
+                new_w = min_size
+                new_h = np.int64(h * min_size / w + 0.5)
+                ratio = min_size/w
+        image = cv2.resize(image, (new_w, new_h),
+                           interpolation = cv2.INTER_LINEAR)
+        if label is not None:
+            label = label*ratio
+            return  image, label, ratio
+        else:
+            return image,ratio
     def gen_sample(self, image, points, name, multi_scale=True, is_flip=True):
 
         if multi_scale:

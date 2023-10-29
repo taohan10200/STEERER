@@ -208,6 +208,7 @@ def main():
         num_workers=config.workers,
         pin_memory=True,
         drop_last=True,
+        persistent_workers=True,
         collate_fn=default_collate,
         sampler=train_sampler)
 

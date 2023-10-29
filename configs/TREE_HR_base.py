@@ -82,8 +82,7 @@ train = dict(
     extra_epoch=0,
     extra_lr = 0,
     #  RESUME: true
-    resume_path=None, #'./exp/SHHA/MocHRBackbone_hrnet48/SHHA_mocHR_small_2022-09-26-20-30', #'/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/SHHB/MocHRBackbone_hrnet48/mocHR_small_2022-09-18-14-54/', #'/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-13-16-28/', # '/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-09-21-07/', #'./exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-06-20-35/', #'/mnt/petrelfs/hantao/HRNet-Semantic-Segmentation/exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-06-13-03/', #'./exp/NWPU/MocHRBackbone_hrnet48/mocHR_small_2022-09-04-19-21/', #'./exp/NWPU/MocBackbone_moc_small/moc_small_2022-08-31-14-41/', #'./exp/NWPU/seg_hrnet/hrt_small_2022-08-07-23-15/',
-    # './exp/NWPU/seg_hrnet/seg_hrnet_w48_2022-05-27-15-03'
+    resume_path=None, 
     flip=True,
     multi_scale=True,
     scale_factor=(0.5, 1/0.5),

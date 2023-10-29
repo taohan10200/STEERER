@@ -3,8 +3,9 @@
 This is the official PyTorch implementation of paper: [**STEERER: Resolving Scale Variations for Counting and Localization via Selective Inheritance Learning**](https://arxiv.org/abs/2308.10468), which effectively addressed the issue of scale variations for object counting and localizaioion, demonstrating the state-of-arts counting and localizaiton performance for different catagories, such as crowd,vehicle, crops and trees ![framework](./figures/framework.png). 
 
 # Catalog
-- [x] Training and Testing Code (2023.08.18)
-- [x] Pretrained models (continuously update)
+- [x] Training and Testing Code (18/08/2023)
+- [x] Pretrained models for SHHB, JHU, TRANSCOS, MTC, TREE (30/10/2023)
+- [x] Pretrained models for NWPU, QNRF (coming soon)
 
 
 # Getting started 
@@ -93,7 +94,9 @@ sh slurm_test.sh partition_name job_name configs/SHHB_final.py ../PretrainedMode
 | This Repo      |  TRANSCOS   | 1.8/3.1 |95.1/91.7/93.4/ | [weights](https://pjlab-my.sharepoint.cn/:u:/g/personal/hantao_dispatch_pjlab_org_cn/EQHeaFzaV_ZAvIdmpbz_lR8BI8a2YzWoka-2Xa__O-O5kA?e=6u8lhT)| [Dataset](https://connectpolyu-my.sharepoint.com/:u:/g/personal/23040302r_connect_polyu_hk/ETfh8zPYbBREg-mJwMEtqTIB6sucZB4g1xJpVu-UN9dLZw?e=IfRT2w)|
 | This Repo      |  MTC   | 2.74/3.72 |-| [weights](https://pjlab-my.sharepoint.cn/:u:/g/personal/hantao_dispatch_pjlab_org_cn/EXolIStQNy9CuxoWo6L6924BpfboWJL1djEfsfENFMohIw?e=7m7fka)| [Dataset](https://pjlab-my.sharepoint.cn/:u:/g/personal/hantao_dispatch_pjlab_org_cn/EWIjz_QnX8xAnDKEYS8vgRQBK9MDySll8gmEXxNhxkq2iA?e=jquZdN)|
 
+| This Repo      |  JHU   | 54.5/240.6 |-| [weights](https://pjlab-my.sharepoint.cn/:u:/g/personal/hantao_dispatch_pjlab_org_cn/EYjeF4H3Xw9GlYvtYOhygCEBS7N39Si_izSr9jRH2Pslfg?e=KgIgbe)| [Dataset]()|
 
+| This Repo      |  TREE   | 8.2/11.3 |-| [weights](https://pjlab-my.sharepoint.cn/:u:/g/personal/hantao_dispatch_pjlab_org_cn/ES8QWb_bYZlGgXODD7whQkABueii634dPYvvVtNE9jPlog?e=35331P)| [Dataset]()|
 <!-- # References
 1. Acquisition of Localization Confidence for Accurate Object Detection, ECCV, 2018.
 2. Very Deep Convolutional Networks for Large-scale Image Recognition, arXiv, 2014.

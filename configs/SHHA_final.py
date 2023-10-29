@@ -30,13 +30,12 @@ network = dict(
 
 dataset = dict(
     name='SHHA',
-    
     root='../ProcessedData/SHHA/',
     test_set='test_val.txt',
     train_set='train.txt',
     loc_gt = 'test_gt_loc.txt',
     num_classes=len(network['resolution_num']),
-    den_factor=50,
+    den_factor=100,
     extra_train_set =None
 )
 
@@ -95,12 +94,13 @@ train = dict(
 test = dict(
     image_size=(1024, 2048),  # height, width
     base_size=2048,
-    loc_base_size=2048,
+    loc_base_size=(768,2048),
     loc_threshold=0.2,
     batch_size_per_gpu=1,
     patch_batch_size=16,
     flip_test=False,
     multi_scale=False,
+
 
     # For crowd counting
     # model_file= './exp/SHHA/MocHRBackbone_hrnet48/SHHA_HR_2022-10-25-20-1_251_mae_54.5_mse_86.9/Ep_251_mae_54.571960030021245_mse_86.92610575458059.pth'

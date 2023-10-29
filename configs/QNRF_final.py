@@ -1,15 +1,14 @@
 
 gpus = (0, 1,)
 log_dir = 'exp'
-workers = 12
-print_freq = 500
+workers = 6
+print_freq = 20
 seed = 3035
 
 network = dict(
     backbone="MocHRBackbone",
     sub_arch='hrnet48',
     counter_type = 'withMOE', #'withMOE' 'baseline'
-
     resolution_num = [0,1,2,3],
     loss_weight = [1., 1/2, 1/4., 1/8.],
     sigma = [4],
@@ -78,7 +77,7 @@ train = dict(
     extra_epoch=0,
     extra_lr = 0,
     #  RESUME: true
-    resume_path='./exp/QNRF/MocHRBackbone_hrnet48/QNRF_final_2023-08-22-16-04/',#"
+    resume_path=None,#"
     flip=True,
     multi_scale=True,
     scale_factor=(0.5, 1/0.5),

@@ -1,6 +1,6 @@
 gpus = (0, 1,)
 log_dir = 'exp'
-workers = 12
+workers = 6
 print_freq = 30
 seed = 3035
 
@@ -89,7 +89,6 @@ train = dict(
     ignore_label= 255
 )
 
-
 test = dict(
     image_size=(1024, 2048),  # height, width
     base_size=5120,
@@ -99,9 +98,6 @@ test = dict(
     patch_batch_size=16,
     flip_test=False,
     multi_scale=False,
-    # './exp/NWPU/seg_hrnet/seg_hrnet_w48_nwpu_2022-06-03-23-12/Ep_138_mae_45.79466183813661_mse_116.98580130706075.pth'
-    # model_file= './exp/NWPU/MocHRBackbone_hrnet48/NWPU_HR_2022-10-15-01-02/Ep_613_mae_69.53440840863891_mse_335.7842308665895.pth', #'./exp/NWPU/seg_hrnet/seg_hrnet_w48_2022-06-03-23-12/Ep_280_mae_54.884169212251905_mse_226.06904272422108.pth'
-    # model_file= './exp/NWPU/MocHRBackbone_hrnet48/NWPU_HR_base_2022-10-19-20-24_65_315/Ep_573_mae_65.62073713033107_mse_315.2563988419984.pth'
     model_file= './exp/NWPU/MocHRBackbone_hrnet48/NWPU_HR_base_2022-10-19-20-24_65_315/Ep_573_mae_65.62073713033107_mse_315.2563988419984.pth'
     # model_file = './exp/NWPU/MocHRBackbone_hrnet48/NWPU_HR_base_2022-11-04-01-01/Ep_715_mae_30.73060810663458_mse_72.68940780485204.pth' # Ep_614_mae_31.279445421263574_mse_71.21658028909538.pth'
 

@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
 # set -x
-
-
 PARTITION=$1
 JOB_NAME=$2
 CONFIG=$3
@@ -25,7 +23,7 @@ srun -p ${PARTITION} \
     --ntasks=${GPUS} \
     --ntasks-per-node=${GPUS_PER_NODE} \
     --cpus-per-task=${CPUS_PER_TASK} \
-    --quotatype=spot \
+    --quotatype=reserved \
     --kill-on-bad-exit=1 \
     --time=18800 \
     --preempt \

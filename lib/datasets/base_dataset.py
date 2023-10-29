@@ -23,8 +23,14 @@ class BaseDataset(data.Dataset):
                  scale_factor=(0.5, 1/0.5),
                  mean=[0.485, 0.456, 0.406], 
                  std=[0.229, 0.224, 0.225]):
-
-        self.base_size = base_size
+        if   isinstance(base_size,tuple):
+            self.min_size = base_size[0]
+            self.base_size = base_size[1]
+        else:
+            self.min_size = None
+            self.base_size = base_size
+        
+        
         self.crop_size = crop_size
         self.ignore_label = ignore_label
 
