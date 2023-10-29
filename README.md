@@ -86,7 +86,7 @@ sh slurm_test.sh partition_name job_name configs/SHHB_final.py ../PretrainedMode
 ```
  
 
-## Reproduce Performance: TODO 
+## Reproduce Counting and Localization Performance
 
 |            | Dataset     |  MAE/MSE |   F1-m./Pre./Rec. (%) | Pretraied Model | Dataset |
 |------------|-------- |-------|-------|-------|------|
