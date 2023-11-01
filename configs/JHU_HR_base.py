@@ -93,6 +93,7 @@ test = dict(
     image_size=(1024, 2048),  # height, width
     base_size=None,
     loc_base_size=None,
+    loc_threshold = 0.10 ,
     batch_size_per_gpu=1,
     patch_batch_size=16,
     flip_test=False,
