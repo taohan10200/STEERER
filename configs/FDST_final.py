@@ -58,7 +58,7 @@ lr_config = dict(
     MIN_LR= 1.0e-07
   )
 
-total_epochs = 210
+total_epochs = 200
 
 log_config = dict(
     interval=50,
@@ -74,7 +74,7 @@ train = dict(
     batch_size_per_gpu=8,
     shuffle=True,
     begin_epoch=0,
-    end_epoch=1000,
+    end_epoch=200,
     extra_epoch=0,
     extra_lr = 0,
     #  RESUME: true
@@ -97,7 +97,7 @@ test = dict(
     patch_batch_size=16,
     flip_test=False,
     multi_scale=False,
-    model_file = './exp/FDST/MocHRBackbone_hrnet48/FDST_HR_base_2022-11-11-00-59/Ep_13_mae_0.7655179897944132_mse_1.0148959853684598.pth'
+    model_file = 'exp/FDST/MocHRBackbone_hrnet48/FDST_final_2023-10-28-18-21/FDST_mae_0.95_mse_1.353.pth'
 )
 
 CUDNN = dict(

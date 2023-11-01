@@ -28,7 +28,7 @@ network = dict(
 dataset = dict(
     name='QNRF',
     root='../ProcessedData/QNRF/',
-    test_set='test_val.txt', #'train_val.txt',
+    test_set='test.txt', #'train_val.txt',
     train_set='train.txt',
     loc_gt = 'test_gt_loc.txt',
     num_classes=len(network['resolution_num']),
@@ -89,18 +89,15 @@ train = dict(
 
 test = dict(
     image_size=(1024, 2048),  # height, width
-    base_size=None,
-    loc_base_size=None,
+    base_size=3072,
+    loc_base_size=3072,
     loc_threshold = 0.15,
     batch_size_per_gpu=1,
     patch_batch_size=16,
     flip_test=False,
     multi_scale=False,
-    # './exp/NWPU/seg_hrnet/seg_hrnet_w48_nwpu_2022-06-03-23-12/Ep_138_mae_45.79466183813661_mse_116.98580130706075.pth'
-    # model_file= './exp/QNRF/MocHRBackbone_hrnet48/QNRF_mocHR_small_2022-09-21-01-23/Ep_287_mae_80.81543667730458_mse_134.10439891983856.pth', #'./exp/NWPU/seg_hrnet/seg_hrnet_w48_2022-06-03-23-12/Ep_280_mae_54.884169212251905_mse_226.06904272422108.pth'
-    model_file = './exp/QNRF/MocHRBackbone_hrnet48/QNRF_HR_2022-10-14-01-54_74.3_128.3/Ep_595_mae_74.31032836365843_mse_128.3202620749926.pth'
-    # model_file = './exp/QNRF/MocHRBackbone_hrnet48/QNRF_HR_2022-10-21-01-51/Ep_359_mae_75.40686944287694_mse_134.90265869398547.pth'
-    # model_file = './exp/SHHA/MocHRBackbone_hrnet48/SHHA_HR_2022-10-22-22-42/Ep_579_mae_55.72465489984869_mse_90.6118800175349.pth'
+    model_file = './exp/QNRF/MocHRBackbone_hrnet48/QNRF_final_2023-10-28-13-44/QNRF_mae_78.4_mse_135.6.pth'
+    # model_file = './exp/QNRF/MocHRBackbone_hrnet48/QNRF_HR_2022-10-21-01-51/Ep_359_mae_75.40686944287694_mse_134.
 )
 
 CUDNN = dict(

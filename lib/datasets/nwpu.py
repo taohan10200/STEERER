@@ -114,9 +114,10 @@ class NWPU(BaseDataset):
         points =  np.array(info['points']).astype('float32').reshape(-1,2)
 
         ratio = 1.0
-        if self.base_size is not  None:
+        if self.base_size is not  None:            
             image,points,ratio = self.image_points_resize(image, self.base_size,points)
 
+            
         if self.min_size is not None:
             image,points,ratio = self.check_minimum_length(image, self.min_size, points)
             
@@ -286,13 +287,7 @@ class NWPU(BaseDataset):
         image = cv2.resize(image, (crop_size[1], crop_size[0]),
                            interpolation=cv2.INTER_LINEAR)  # width, height
         points *= scale_factor
-        # gt['box']  = gt['box'][index].view(-1,4).contiguous()
-        # gt['box'][:, 0:2] -= torch.tensor([x1, y1], dtype = torch.float32)
-        #
-        # gt['person_id'] =  gt['person_id'][index] #gt[1][y1:y1 + th, x1:x1 + tw]
 
-        # gt['sigma'] = gt['sigma'][index]
-        # print( len(gt['points']))
         return image, points
 
     def label_transform(self, points, shape):
