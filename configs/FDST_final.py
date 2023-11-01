@@ -1,6 +1,6 @@
 gpus = (0, 1,)
 log_dir = 'exp'
-workers = 12
+workers = 6
 print_freq = 30
 seed = 3035
 
