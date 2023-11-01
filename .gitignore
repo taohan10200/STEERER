@@ -6,7 +6,6 @@
 job/
 exp/
 scale_generalization/
-nwp.egg-info/
 .vscode/
 
 
