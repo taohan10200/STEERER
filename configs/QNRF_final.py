@@ -38,7 +38,7 @@ dataset = dict(
 
 optimizer = dict(
     NAME='adamw',
-    BASE_LR=1e-5,
+    BASE_LR=1e-4,
     BETAS=(0.9, 0.999),
     WEIGHT_DECAY=1e-4,
     EPS= 1.0e-08,

@@ -37,7 +37,7 @@ for ((i=0; i<${#GPUS_ID}; i++)); do
     fi
 done
 
-source /mnt/petrelfs/hantao.dispatch/anaconda3/bin/activate STEERER
+source ~/anaconda3/bin/activate STEERER
 
 echo "export CUDA_VISIBLE_DEVICES=$GPUS_ID"
 export CUDA_VISIBLE_DEVICES=${GPUS_ID:-"0"}
