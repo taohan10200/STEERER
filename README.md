@@ -29,7 +29,7 @@ cd ${STEERER}
 pip install -r requirements.txt
 ```
 
-- **Prepare datasets and weights.** Pretrained models are available at the [OneDrive](https://pjlab-my.sharepoint.cn/:f:/g/personal/hantao_dispatch_pjlab_org_cn/EpdTPZDeIhxCpR5gr46iXyYBZXgpMxNTBk0rqqQc6po3UQ?e=ewxq7i) net disk,  and you can selectively dolownd the dataset that you want to train or inference. Before starting your training and testing, you should organiza your project as the following directory tree. 
+- <span style="color:red">**!!! Processed datasets and Pretrained-weights** </span> are available at the [OneDrive](https://pjlab-my.sharepoint.cn/:f:/g/personal/hantao_dispatch_pjlab_org_cn/EpdTPZDeIhxCpR5gr46iXyYBvEC1xo8qX96FvK8geMJs6Q?e=SGfrSS) net disk,  and you can selectively dolownd the dataset that you want to train or inference. Before starting your training and testing, you should organiza your project as the following directory tree. 
 
 ````bash
 
@@ -58,8 +58,11 @@ pip install -r requirements.txt
 ## Training
 we provide simplify script to run distributed or cluster training,
 ```bash
-# $1 is the configuration file, $2 is the GPU_ID, also support multiple GPUs, like 1,2,3,4 
+# $1 is the configuration file, $2 is the GPU_ID
 sh train.sh configs/SHHB_final.py 1  
+
+# mltiple GPUs
+sh train.sh configs/SHHB_final.py 0,1,2,3 
 
 ```
 or if you are trainging on the computer cluster, you could be run

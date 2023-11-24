@@ -6,7 +6,7 @@ CONFIG=$1
 CHECKPOINT=$2
 GPUS=$3
 
-source /mnt/petrelfs/hantao.dispatch/anaconda3/bin/activate STEERER
+source ~/anaconda3/bin/activate STEERER
 
 # export CUDA_VISIBLE_DEVICES=${GPUS:-"1"}
 
