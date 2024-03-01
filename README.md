@@ -100,7 +100,7 @@ sh slurm_test.sh partition_name job_name configs/SHHB_final.py ../PretrainedMode
 | This Repo      |  TREE   | 8.2/11.3 |72.9/70.4/75.7| [weights](https://pjlab-my.sharepoint.cn/:u:/g/personal/hantao_dispatch_pjlab_org_cn/ES8QWb_bYZlGgXODD7whQkABueii634dPYvvVtNE9jPlog?e=35331P)| [Dataset](https://pjlab-my.sharepoint.cn/:u:/g/personal/hantao_dispatch_pjlab_org_cn/EaciE23qN29LjZPOMkpsm3wB0L_xZaqj-s2Ig2_DMnGFAw?e=fh1IKf)|
 | This Repo      |  FDST   | 0.93/1.29 |97.4/98.0/96.7| [weights](https://pjlab-my.sharepoint.cn/:u:/g/personal/hantao_dispatch_pjlab_org_cn/ERU3N-R2bYVPqjWIOpxorcYBTTDPHzkTnj9owFLgQgvURQ?e=SHMpQJ)| [Dataset](https://pjlab-my.sharepoint.cn/:u:/g/personal/hantao_dispatch_pjlab_org_cn/EWtkM9DQMKRKhgQBNkxHy64B7AgRsyv8DhnFZRnlrF29Vw?e=Q0VPjG)|
 | This Repo      |  UCF-QNRF   | 77.8/138.0 |75.6/79.7/72.0| [weights](https://pjlab-my.sharepoint.cn/:u:/g/personal/hantao_dispatch_pjlab_org_cn/EfE8YRRrAYVBj7HbkC78yPYBPjLURl1ltKlihKhTI1Kl4g?e=yvrPDb)| [Dataset](https://pjlab-my.sharepoint.cn/:u:/g/personal/hantao_dispatch_pjlab_org_cn/Ef9E9oVtjyBEld_RYpPtqFUBfTBSy6ZgT0rqUhOMgC-X9A?e=WNn9aM)|
-
+| This Repo      |  NWPU   | 32.5/80.4 (Val. set)|-| [weights](https://pjlab-my.sharepoint.cn/:u:/g/personal/hantao_dispatch_pjlab_org_cn/ETu2pnFluOtIozpmfd7ptrUBUvCf2TxUD3_w_aW-9iKX8g?e=DoQNZN)|-||
 <!-- # References
 1. Acquisition of Localization Confidence for Accurate Object Detection, ECCV, 2018.
 2. Very Deep Convolutional Networks for Large-scale Image Recognition, arXiv, 2014.

@@ -28,9 +28,9 @@ network = dict(
 dataset = dict(
     name='NWPU',
     root='../ProcessedData/NWPU/',
-    test_set='val.txt',
+    test_set='test.txt',
     train_set='train.txt',
-    loc_gt = 'val_gt_loc.txt',
+    loc_gt = 'test_gt_loc.txt',
     num_classes=len(network['resolution_num']),
     den_factor=100,
     extra_train_set =None
@@ -91,14 +91,16 @@ train = dict(
 
 test = dict(
     image_size=(1024, 2048),  # height, width
-    base_size=5120,
-    loc_base_size=5120,
+    base_size=4096,
+    loc_base_size=4096,
     loc_threshold = 0.10 ,
     batch_size_per_gpu=1,
     patch_batch_size=16,
     flip_test=False,
     multi_scale=False,
-    model_file= './exp/NWPU/MocHRBackbone_hrnet48/NWPU_HR_base_2022-10-19-20-24_65_315/Ep_573_mae_65.62073713033107_mse_315.2563988419984.pth'
+    model_file=  'exp/NWPU/MocHRBackbone_hrnet48/NWPU_final_2023-10-28-16-56/Ep_617_mae_32.569058299681174_mse_80.39371260587879.pth'#'
+    
+    
     # model_file = './exp/NWPU/MocHRBackbone_hrnet48/NWPU_HR_base_2022-11-04-01-01/Ep_715_mae_30.73060810663458_mse_72.68940780485204.pth' # Ep_614_mae_31.279445421263574_mse_71.21658028909538.pth'
 
         #  test 4096: mae: 64.06/311.09
@@ -110,3 +112,27 @@ CUDNN = dict(
     BENCHMARK= True,
     DETERMINISTIC= False,
     ENABLED= True)
+
+# -----Localization performance with box annotations-----
+# AP_small: 0.7266841537920595
+# AR_small: 0.6828295989514259
+# F1m_small: 0.7040746474908515
+# AR_small_category: [0.42393291 0.36564436 0.73972631 0.84076178 0.8427917  0.66378162]
+#     avg: 0.6461064473509256
+# AP_large: 0.7937366597389477
+# AR_large: 0.7458355631044619
+# F1m_large: 0.7690409320060393
+# AR_large_category: [0.47901598 0.46454416 0.7978246  0.88839592 0.89029675 0.74101198]
+#     avg: 0.7101815664678331
+# -----Localization performance with points annotations-----
+# avg precision_overall:0.0
+# avg recall_overall:0.0
+# avg F1_overall:0.0
+# Mean Loclization Error:11.071264797722778
+# -----Counting performance-----
+# MAE: 68.13228172825124
+# MSE: 339.16208533951306
+# NAE: 0.134009762841654
+# mae:  68.1323, mse:  339.1621,                nae:  0.1340, Class IoU:
+# Mins: 54
+# Done

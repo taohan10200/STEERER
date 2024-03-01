@@ -98,8 +98,7 @@ test = dict(
     patch_batch_size=16,
     flip_test=False,
     multi_scale=False,
-    # './exp/NWPU/seg_hrnet/seg_hrnet_w48_nwpu_2022-06-03-23-12/Ep_138_mae_45.79466183813661_mse_116.98580130706075.pth'
-    # model_file= './exp/NWPU/MocHRBackbone_hrnet48/NWPU_HR_2022-10-15-01-02/Ep_613_mae_69.53440840863891_mse_335.7842308665895.pth', #'./exp/NWPU/seg_hrnet/seg_hrnet_w48_2022-06-03-23-12/Ep_280_mae_54.884169212251905_mse_226.06904272422108.pth'
+
     model_file= './exp/NWPU/MocHRBackbone_hrnet48/NWPU_HR_base_2022-10-19-20-24_65_315/Ep_573_mae_65.62073713033107_mse_315.2563988419984.pth'
         #  test 4096: mae: 64.06/311.09
         #  test 2048:mae: 77
